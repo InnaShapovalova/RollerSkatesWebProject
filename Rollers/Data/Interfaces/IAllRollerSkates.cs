@@ -9,7 +9,7 @@ namespace Rollers.Data.interfaces
     public interface IAllRollerSkates
     {
         public IEnumerable<RollerSkate> RollerSkates{ get; }
-        public IEnumerable<RollerSkate> getFavRollerSkates { get; set; }
+        public IEnumerable<RollerSkate> getFavRollerSkates { get; }
         public RollerSkate getObjectRollerSkate(int rollerId);
     }
 }

@@ -1,10 +1,12 @@
 ﻿
 <h2>All roller skates</h2>
 <h2>@Model.rollerSkateCategory</h2>
+<p class="text-success">.text-success</p>
 
 @{
-    foreach (var skate in Model.allRollerSkates){
-       <div>
+    foreach (var skate in Model.allRollerSkates)
+    {
+        <div>
             <h2>Name: @skate.name</h2>
             <h2>Price: @skate.price.ToString("c")</h2>
             <h2>Short description: @skate.shortDesc</h2>

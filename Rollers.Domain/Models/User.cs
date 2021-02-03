@@ -14,6 +14,5 @@ namespace RollerSkatesWebProject.Domain
         public string LastName { get; set; }
         public string Email { get; set; }
         public UserTypeEnum UserType { get; set; }
-
     }
 }

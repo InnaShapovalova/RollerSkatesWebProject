@@ -9,8 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rollers.Data;
 using Rollers.Data.interfaces;
 using Rollers.Data.models;
+using Rollers.Data.Repository;
 
 namespace Rollers
 {
@@ -34,8 +36,8 @@ namespace Rollers
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Data.AppDBContent>(options => options.UseSqlServer(_confString.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IRollerSkatesCategory, MockCategory>();
-            services.AddTransient<IAllRollerSkates, MockRollerSkates>();
+            services.AddTransient<IRollerSkatesCategory, CategoryRepository>();
+            services.AddTransient<IAllRollerSkates, RollerSkateRepository>();
             services.AddControllersWithViews();
             services.AddMvc();
         }
@@ -59,6 +61,11 @@ namespace Rollers
             });
 
 
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                AppDBContent content = scope.ServiceProvider.GetRequiredService<AppDBContent>();
+                DBObjects.Initial(content);
+            }
         }
     }
 }

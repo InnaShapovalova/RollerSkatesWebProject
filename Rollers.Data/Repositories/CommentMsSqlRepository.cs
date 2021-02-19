@@ -24,8 +24,11 @@ namespace Rollers.Data.Repositories
         public void DeleteComment(int id)
         {
             var comment = _appDbContext.Comments.FirstOrDefault(p => p.Id == id);
-            _appDbContext.Comments.Remove(comment);
-            _appDbContext.SaveChanges();
+            if (comment != null)
+            {
+                _appDbContext.Comments.Remove(comment);
+                _appDbContext.SaveChanges();
+            }
         }
 
         public List<Comment> GetAllComments()

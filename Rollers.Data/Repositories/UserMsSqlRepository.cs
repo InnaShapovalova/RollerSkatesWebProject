@@ -25,8 +25,11 @@ namespace Rollers.Data.Repositories
         public void DeleteUser(int id)
         {
             var user = _appDbContext.Users.FirstOrDefault(p => p.Id == id);
-            _appDbContext.Remove(user);
-            _appDbContext.SaveChanges();
+            if (user != null)
+            {
+                _appDbContext.Remove(user);
+                _appDbContext.SaveChanges();
+            }
         }
 
         public List<User> GetAllUsers()
@@ -41,7 +44,9 @@ namespace Rollers.Data.Repositories
 
         public User UpdateUser(User updatedUser)
         {
-            return _appDbContext.Users.Where(p => p.Id == updatedUser.Id).FirstOrDefault();
+            _appDbContext.Entry( _appDbContext.Users.FirstOrDefault(x => x.Id == updatedUser.Id)).CurrentValues.SetValues(updatedUser);
+            _appDbContext.SaveChanges();
+            return updatedUser;         //It's wrong
         }
     }
 }

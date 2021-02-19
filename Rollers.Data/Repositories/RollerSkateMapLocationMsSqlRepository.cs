@@ -18,8 +18,11 @@ namespace Rollers.Data.Repositories
         public void DeleteRollerSkateMapLocation(int id)
         {
             var rollerSkateMapLocation = _appDbContext.RollerSkateMapLocations.FirstOrDefault(p => p.Id == id);
-            _appDbContext.RollerSkateMapLocations.Remove(rollerSkateMapLocation);
-            _appDbContext.SaveChanges();
+            if (rollerSkateMapLocation != null)
+            {
+                _appDbContext.RollerSkateMapLocations.Remove(rollerSkateMapLocation);
+                _appDbContext.SaveChanges();
+            }
         }
 
         public List<RollerSkateMapLocation> GetAllRollerSkateMapLocations()

@@ -31,6 +31,14 @@ namespace Rollers.Controllers.Api
             return View("Style");
             //return View(obj);
         }
+        [Route("submit")]
+        [HttpPost]
+        public ActionResult Submit([FromForm] User user)
+        {
+            _userRepository.AddUser(user);
+            return Content("user was added");
+            //return View(obj);
+        }
         [Route("adduser")]
         [HttpPost]
         public IActionResult AddUser([FromBody]User newUser)
@@ -43,6 +51,15 @@ namespace Rollers.Controllers.Api
         public IActionResult GetUserById(int id)
         {
             return Ok(_userRepository.GetUser(id));
+        }
+
+
+        [Route("user/update")]
+        [HttpPost]
+        public IActionResult UpdateUser([FromBody] User updatedUser)
+        {
+            _userRepository.UpdateUser(updatedUser);
+            return Ok();
         }
     }
 }

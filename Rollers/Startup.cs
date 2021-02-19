@@ -9,35 +9,31 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Rollers.Data;
-using Rollers.Data.interfaces;
-using Rollers.Data.models;
-using Rollers.Data.Repository;
+using Rollers.Data.Contexts;
+using Rollers.Data.Repositories;
+using Rollers.Domain.Abstractions;
 
 namespace Rollers
 {
     public class Startup
     {
+        private readonly AppConfiguration _appConfiguration = new AppConfiguration();
 
-        private IConfigurationRoot _confString;
 
-        public Startup(Microsoft.AspNetCore.Hosting.IHostingEnvironment hostEnv)
-        {
-            _confString = new ConfigurationBuilder().SetBasePath(hostEnv.ContentRootPath).AddJsonFile("dbsettings.json").Build();
-        }
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            configuration.Bind(_appConfiguration);
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Data.AppDBContent>(options => options.UseSqlServer(_confString.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IRollerSkatesCategory, CategoryRepository>();
-            services.AddTransient<IAllRollerSkates, RollerSkateRepository>();
+            services.AddSingleton(_appConfiguration);
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_appConfiguration.DbSettings.MsSqlConnectionString));
+            services.AddScoped<IRollerSkateMapLocationRepository, RollerSkateMapLocationMsSqlRepository>();
+            services.AddScoped<IUserRepository, UserMsSqlRepository>();
+            services.AddScoped<ICommentRepository, CommentMsSqlRepository>();
             services.AddControllersWithViews();
             services.AddMvc();
         }
@@ -50,7 +46,7 @@ namespace Rollers
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -61,11 +57,6 @@ namespace Rollers
             });
 
 
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                AppDBContent content = scope.ServiceProvider.GetRequiredService<AppDBContent>();
-                DBObjects.Initial(content);
-            }
         }
     }
 }

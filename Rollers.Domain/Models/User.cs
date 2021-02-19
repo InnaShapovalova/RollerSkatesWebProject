@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RollerSkatesWebProject.Domain
+namespace Rollers.Domain.Models
 {
     public class User
     {
@@ -14,5 +14,6 @@ namespace RollerSkatesWebProject.Domain
         public string LastName { get; set; }
         public string Email { get; set; }
         public UserTypeEnum UserType { get; set; }
+        public List<RollerSkateMapLocation> RollerSkateMapLocations { get; set; }
     }
 }

@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rollers", "Rollers\Rollers.csproj", "{7941C777-A623-4372-B97B-29AAE9CC0C15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rollers.Domain", "Rollers.Domain\Rollers.Domain.csproj", "{E0653211-3FD5-4F2C-8F0B-C17CF4358C98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rollers.Domain", "Rollers.Domain\Rollers.Domain.csproj", "{E0653211-3FD5-4F2C-8F0B-C17CF4358C98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rollers.Data", "Rollers.Data\Rollers.Data.csproj", "{6A54AE98-78A7-4A0F-8D5D-7A4D4BBE0AD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E0653211-3FD5-4F2C-8F0B-C17CF4358C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0653211-3FD5-4F2C-8F0B-C17CF4358C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0653211-3FD5-4F2C-8F0B-C17CF4358C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A54AE98-78A7-4A0F-8D5D-7A4D4BBE0AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A54AE98-78A7-4A0F-8D5D-7A4D4BBE0AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A54AE98-78A7-4A0F-8D5D-7A4D4BBE0AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A54AE98-78A7-4A0F-8D5D-7A4D4BBE0AD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

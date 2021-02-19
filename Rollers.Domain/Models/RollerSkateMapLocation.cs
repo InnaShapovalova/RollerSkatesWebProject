@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RollerSkatesWebProject.Domain
+namespace Rollers.Domain.Models
 {
     public class RollerSkateMapLocation
     {
@@ -13,5 +13,7 @@ namespace RollerSkatesWebProject.Domain
         public string LocationName { get; set; }
         public string Address { get; set; }
         public List<Comment> Comments { get; set; }
+        public int UserId{ get; set; }
+        public User User{ get; set; }
     }
 }

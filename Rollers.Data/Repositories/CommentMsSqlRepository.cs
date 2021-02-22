@@ -43,7 +43,9 @@ namespace Rollers.Data.Repositories
 
         public Comment UpdateComment(Comment updatedComment)
         {
-            return _appDbContext.Comments.Where(p => p.Id == updatedComment.Id).FirstOrDefault();
+            _appDbContext.Entry(_appDbContext.Users.FirstOrDefault(x => x.Id == updatedComment.Id)).CurrentValues.SetValues(updatedComment);
+            _appDbContext.SaveChanges();
+            return updatedComment;
         }
     }
 }

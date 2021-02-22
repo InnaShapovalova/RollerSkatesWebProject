@@ -42,7 +42,9 @@ namespace Rollers.Data.Repositories
 
         public RollerSkateMapLocation UpdateRollerSkateMapLocation(RollerSkateMapLocation updatedRollerSkateMapLocation)
         {
-            return _appDbContext.RollerSkateMapLocations.Where(p => p.Id == updatedRollerSkateMapLocation.Id).FirstOrDefault();
+            _appDbContext.Entry(_appDbContext.Users.FirstOrDefault(x => x.Id == updatedRollerSkateMapLocation.Id)).CurrentValues.SetValues(updatedRollerSkateMapLocation);
+            _appDbContext.SaveChanges();
+            return updatedRollerSkateMapLocation;
         }
     }
 }

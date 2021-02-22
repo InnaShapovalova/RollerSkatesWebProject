@@ -36,5 +36,19 @@ namespace Rollers.Controllers.Api
         {
             return Ok(_commentRepository.GetComment(id));
         }
+        [Route("comment/update")]
+        [HttpPost]
+        public IActionResult UpdateComment([FromBody] Comment updatedComment)
+        {
+            _commentRepository.UpdateComment(updatedComment);
+            return Ok();
+        }
+        [Route("comment/delete")]
+        [HttpPost]
+        public IActionResult DeleteComment(int id)
+        {
+            _commentRepository.DeleteComment(id);
+            return Ok();
+        }
     }
 }

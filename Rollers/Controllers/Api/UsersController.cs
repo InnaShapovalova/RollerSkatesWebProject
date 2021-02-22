@@ -28,7 +28,7 @@ namespace Rollers.Controllers.Api
         [HttpGet]
         public ActionResult Submit()
         {
-            return View("Style");
+            return View("MainPage");
             //return View(obj);
         }
         [Route("submit")]
@@ -53,12 +53,18 @@ namespace Rollers.Controllers.Api
             return Ok(_userRepository.GetUser(id));
         }
 
-
         [Route("user/update")]
         [HttpPost]
         public IActionResult UpdateUser([FromBody] User updatedUser)
         {
             _userRepository.UpdateUser(updatedUser);
+            return Ok();
+        }
+        [Route("user/delete")]
+        [HttpPost]
+        public IActionResult DeleteUser(int id)
+        {
+            _userRepository.DeleteUser(id);
             return Ok();
         }
     }

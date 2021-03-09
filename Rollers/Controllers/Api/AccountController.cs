@@ -8,11 +8,11 @@ namespace Rollers.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BunkerGearController: Controller
+    public class AccountController: Controller
     {
         public IActionResult Index()
         {
-            return View("BunkerGear");  
+            return View("Account");  
         }
     }
 }

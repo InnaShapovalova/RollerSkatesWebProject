@@ -36,6 +36,20 @@ namespace Rollers.Controllers.Api
         {
             return Ok(_rollerSkateMapLocationRepository.GetRollerSkateMapLocation(id));
         }
+        [Route("rollerskatemaplocation/update")]
+        [HttpPost]
+        public IActionResult UpdateRollerSkateMapLocation([FromBody] RollerSkateMapLocation updatedRollerSkateMapLocation)
+        {
+            _rollerSkateMapLocationRepository.UpdateRollerSkateMapLocation(updatedRollerSkateMapLocation);
+            return Ok();
+        }
+        [Route("rollerskatemaplocation/delete")]
+        [HttpPost]
+        public IActionResult DeleteRollerSkateMapLocation(int id)
+        {
+            _rollerSkateMapLocationRepository.DeleteRollerSkateMapLocation(id);
+            return Ok();
+        }
     }
 }
 

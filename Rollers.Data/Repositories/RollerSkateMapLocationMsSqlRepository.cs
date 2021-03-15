@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace Rollers.Data.Repositories
 {
@@ -27,14 +28,20 @@ namespace Rollers.Data.Repositories
 
         public List<RollerSkateMapLocation> GetAllRollerSkateMapLocations()
         {
-            return _appDbContext.RollerSkateMapLocations.ToList();
+            return _appDbContext.RollerSkateMapLocations
+                             .Include("Comments")
+                             .Include("User")
+                             .ToList();
         }
 
         public RollerSkateMapLocation GetRollerSkateMapLocation(int id)
         {
-            return _appDbContext.RollerSkateMapLocations.First(x => x.Id == id);
+            return _appDbContext.RollerSkateMapLocations
+                             .Include("Comments")
+                             .Include("User")
+                             .First(x => x.Id == id);
         }
-        
+
         public void AddRollerSkateMapLocation(RollerSkateMapLocation newRollerSkateMapLocation)
         {
             _appDbContext.RollerSkateMapLocations.Add(newRollerSkateMapLocation);
@@ -42,7 +49,9 @@ namespace Rollers.Data.Repositories
 
         public RollerSkateMapLocation UpdateRollerSkateMapLocation(RollerSkateMapLocation updatedRollerSkateMapLocation)
         {
-            return _appDbContext.RollerSkateMapLocations.Where(p => p.Id == updatedRollerSkateMapLocation.Id).FirstOrDefault();
+            _appDbContext.Entry(_appDbContext.Users.FirstOrDefault(x => x.Id == updatedRollerSkateMapLocation.Id)).CurrentValues.SetValues(updatedRollerSkateMapLocation);
+            _appDbContext.SaveChanges();
+            return updatedRollerSkateMapLocation;
         }
     }
 }

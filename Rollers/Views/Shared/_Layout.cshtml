@@ -1,16 +1,55 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div>
-        @RenderBody()
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-dark bg-dark">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/img/roller-skate-logo.svg" width="50" height="50" alt="">
+            </a>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Current == "Home" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Current == "Locations" ? "active" : "")" asp-area="" asp-controller="Locations" asp-action="Locations">Locations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Current == "Info" ? "active" : "")" asp-area="" asp-controller="Info" asp-action="Index">Usefull Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Current == "About" ? "active" : "")" asp-area="" asp-controller="About" asp-action="Index">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Current == "Contacts" ? "active" : "")" asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#shared-login-popup">
+                    <img src="~/img/login-person.svg" width="30" height="30" alt="">
+                </button>
+
+            </div>
+
+        </nav>
+    </header>
+    <div class="container-xxl p-3">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
-    <script src="~/js/bootstrap.min.js"></script>
+
+    <partial name="_LoginPartialModal" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

@@ -1,16 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rollers.Domain.Abstractions;
 using Rollers.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rollers.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommentsController: ControllerBase
+    public class CommentsController : ControllerBase
     {
         private readonly ICommentRepository _commentRepository = null;
         public CommentsController(ICommentRepository commentRepository)
@@ -35,6 +31,20 @@ namespace Rollers.Controllers.Api
         public IActionResult GetCommentById(int id)
         {
             return Ok(_commentRepository.GetComment(id));
+        }
+        [Route("comment/update")]
+        [HttpPost]
+        public IActionResult UpdateComment([FromBody] Comment updatedComment)
+        {
+            _commentRepository.UpdateComment(updatedComment);
+            return Ok();
+        }
+        [Route("comment/delete")]
+        [HttpPost]
+        public IActionResult DeleteComment(int id)
+        {
+            _commentRepository.DeleteComment(id);
+            return Ok();
         }
     }
 }

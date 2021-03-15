@@ -1,0 +1,47 @@
+﻿@using Rollers.ViewModels
+
+@model Rollers.ViewModels.LocationsViewModel
+
+<div class="row p-3 align-items-center justify-content-center">
+    <div class="col-4">
+        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#add-new-location-popup">
+            Add Location
+        </button>
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-outline-dark">
+            My Locations
+        </button>
+    </div>
+
+    <div class="col-4">
+        <button type="button" class="btn btn-outline-dark">
+            3rd button
+        </button>
+    </div>
+</div>
+
+
+@if (Model.RollerSkateMapLocations.Count > 0)
+{
+@foreach (var location in Model.RollerSkateMapLocations)
+{
+<div class="card text-center border-dark">
+    <div class="card-header">
+        @location.LocationName
+    </div>
+    <div class="card-body">
+        <p class="card-text">@location.Address</p>
+        <p class="card-text">Created by @location.User.FirstName @location.User.LastName</p>
+        <a asp-controller="Locations" asp-action="Location" asp-route-locationId="@location.Id" class="btn btn-secondary">See all information</a>
+    </div>
+    <div class="card-footer text-muted">
+        Count of comments: @(location.Comments?.Count ?? 0)
+    </div>
+</div>}}
+
+<partial name="AddLocationPartial" />
+
+
+
+

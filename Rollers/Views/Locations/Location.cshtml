@@ -1,0 +1,21 @@
+﻿@model LocationViewModel
+
+<div class="card text-center border-dark">
+    <div class="card-header">
+        @Model.RollerSkateMapLocation.LocationName
+    </div>
+    <div class="card-body">
+        <p class="card-text">@Model.RollerSkateMapLocation.Address</p>
+        <p class="card-text">Created by @Model.RollerSkateMapLocation.User.FirstName @Model.RollerSkateMapLocation.User.LastName</p>
+        <p class="card-text">Latitude: @Model.RollerSkateMapLocation.Latitude, Longitude: @Model.RollerSkateMapLocation.Longitude</p>
+        <p>Comments: </p>
+        <lu>
+            @foreach (var comment in Model.RollerSkateMapLocation.Comments)
+            {
+<li><p>@comment.CommentText</p></li>            }
+        </lu>
+    </div>
+    <div class="card-footer text-muted">
+        Count of comments: @(Model.RollerSkateMapLocation.Comments?.Count ?? 0)
+    </div>
+</div>

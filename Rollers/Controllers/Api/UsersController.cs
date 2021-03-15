@@ -11,7 +11,7 @@ namespace Rollers.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController:Controller
+    public class UsersController : Controller
     {
         private readonly IUserRepository _userRepository = null;
         public UsersController(IUserRepository userRepository)
@@ -24,24 +24,9 @@ namespace Rollers.Controllers.Api
         {
             return Ok(_userRepository.GetAllUsers());
         }
-        [Route("submit")]
-        [HttpGet]
-        public ActionResult Submit()
-        {
-            return View("MainPage");
-            //return View(obj);
-        }
-        [Route("submit")]
-        [HttpPost]
-        public ActionResult Submit([FromForm] User user)
-        {
-            _userRepository.AddUser(user);
-            return Content("user was added");
-            //return View(obj);
-        }
         [Route("adduser")]
         [HttpPost]
-        public IActionResult AddUser([FromBody]User newUser)
+        public IActionResult AddUser([FromBody] User newUser)
         {
             _userRepository.AddUser(newUser);
             return Ok();

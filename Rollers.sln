@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rollers", "Rollers\Rollers.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rollers.Domain", "Rollers.Domain\Rollers.Domain.csproj", "{E0653211-3FD5-4F2C-8F0B-C17CF4358C98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rollers.Data", "Rollers.Data\Rollers.Data.csproj", "{6A54AE98-78A7-4A0F-8D5D-7A4D4BBE0AD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rollers.Data", "Rollers.Data\Rollers.Data.csproj", "{6A54AE98-78A7-4A0F-8D5D-7A4D4BBE0AD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

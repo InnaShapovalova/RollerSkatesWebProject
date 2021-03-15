@@ -1,302 +1,55 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RollerSkateWebApplication</title>
-
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/style.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
-    <script>
-        $(".email-signup").hide();
-$("#signup-box-link").click(function(){
-  $(".email-login").fadeOut(100);
-  $(".email-signup").delay(100).fadeIn(100);
-  $("#login-box-link").removeClass("active");
-  $("#signup-box-link").addClass("active");
-});
-$("#login-box-link").click(function(){
-  $(".email-login").delay(100).fadeIn(100);;
-  $(".email-signup").fadeOut(100);
-  $("#login-box-link").addClass("active");
-  $("#signup-box-link").removeClass("active");
-});
-    </script>
-    <style>
-        .navbar-inverse .navbar-nav > li > a {
-            color: #d5d6d7;
-        }
-
-        .login-box {
-            position: relative;
-            margin: 10px auto;
-            width: 500px;
-            height: 380px;
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 3px;
-            -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
-            -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
-            box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
-        }
-
-        .lb-header {
-            position: relative;
-            color: #00415d;
-            margin: 5px 5px 10px 5px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            text-align: center;
-            height: 28px;
-        }
-
-            .lb-header a {
-                margin: 0 25px;
-                padding: 0 20px;
-                text-decoration: none;
-                color: #666;
-                font-weight: bold;
-                font-size: 15px;
-                -webkit-transition: all 0.1s linear;
-                -moz-transition: all 0.1s linear;
-                transition: all 0.1s linear;
-            }
-
-            .lb-header .active {
-                color: #029f5b;
-                font-size: 18px;
-            }
-
-        .social-login {
-            position: relative;
-            float: left;
-            width: 100%;
-            height: auto;
-            padding: 10px 0 15px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-            .social-login a {
-                position: relative;
-                float: left;
-                width: calc(40% - 8px);
-                text-decoration: none;
-                color: #fff;
-                border: 1px solid rgba(0,0,0,0.05);
-                padding: 12px;
-                border-radius: 2px;
-                font-size: 12px;
-                text-transform: uppercase;
-                margin: 0 3%;
-                text-align: center;
-            }
-
-                .social-login a i {
-                    position: relative;
-                    float: left;
-                    width: 20px;
-                    top: 2px;
-                }
-
-                .social-login a:first-child {
-                    background-color: #49639F;
-                }
-
-                .social-login a:last-child {
-                    background-color: #DF4A32;
-                }
-
-        .email-login, .email-signup {
-            position: relative;
-            float: left;
-            width: 100%;
-            height: auto;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .u-form-group {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-            .u-form-group input[type="email"],
-            .u-form-group input[type="password"] {
-                width: calc(50% - 22px);
-                height: 45px;
-                outline: none;
-                border: 1px solid #ddd;
-                padding: 0 10px;
-                border-radius: 2px;
-                color: #333;
-                font-size: 0.8rem;
-                -webkit-transition: all 0.1s linear;
-                -moz-transition: all 0.1s linear;
-                transition: all 0.1s linear;
-            }
-
-            .u-form-group input:focus {
-                border-color: #358efb;
-            }
-
-            .u-form-group button {
-                width: 50%;
-                background-color: #1CB94E;
-                border: none;
-                outline: none;
-                color: #fff;
-                font-size: 14px;
-                font-weight: normal;
-                padding: 14px 0;
-                border-radius: 2px;
-                text-transform: uppercase;
-            }
-
-        .forgot-password {
-            width: 50%;
-            text-align: left;
-            text-decoration: underline;
-            color: #888;
-            font-size: 0.75rem;
-        }
-    </style>
+    <title>@ViewData["Title"] - WebApplication</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header v-cloak
-            class="site-header  page.influencer "
-            data-site-header data-section-id="header" data-cart-type="cart_page"
-            data-fixed-header="true"
-            data-transparent-header="false" style="background-color:#313539;padding:30px">
-        <nav class="navbar navbar-main navbar-dark bg-dark navbar-expand-xl">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a v-if="!isInfluencerTemplate" v-cloak href="/" class="navbar-brand mx-auto" name="Roller Skates" title="Bunker Branding Co." aria-label="Bunker Branding Co.">
 
-                        <img v-if="isLogoLight" src="https://lh3.googleusercontent.com/proxy/wMY76HgF81wXmLADIRi0dWemCrM99RP0eAvIzd5kJNsiB2AaSqoBfW9DGrBjqsmozcIY7bd2qoGT4hz4k0Q1N4RHZ0Gt_ZFiXIY" alt="Roller Skates" width="120" style="position: absolute; top: 50%; left: 5%; margin-top: -55px; margin-left: -80px;">
-                    </a>
-                </div>
-                <div class="navbar navbar-inverse" style="background-color:#313539;border:hidden;margin-left:70px;margin-top:40px;">
-                    <font face="Tahoma" size="5">
-                        <ul class="nav navbar-nav">
-                            <li><a asp-page="/About">Локації</a></li>
-                            <li><a asp-page="/About">Корисна інформація</a></li>
-                            <li><a asp-page="/Contact">Про нас</a></li>
-                            <li><a asp-page="/Contact">Контакти</a></li>
-                        </ul>
-                    </font>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-dark bg-dark">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/img/roller-skate-logo.svg" width="50" height="50" alt="">
+            </a>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Current == "Home" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Current == "Locations" ? "active" : "")" asp-area="" asp-controller="Locations" asp-action="Locations">Locations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Current == "Info" ? "active" : "")" asp-area="" asp-controller="Info" asp-action="Index">Usefull Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Current == "About" ? "active" : "")" asp-area="" asp-controller="About" asp-action="Index">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Current == "Contacts" ? "active" : "")" asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#shared-login-popup">
+                    <img src="~/img/login-person.svg" width="30" height="30" alt="">
+                </button>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary" style="background-color:#313539;margin-right:-15px;margin-top:10px;border-color:#d5d6d7">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#d5d6d7" style="background-color:#313539" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                </svg>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
         </nav>
-        </header>
-        <partial name="_CookieConsentPartial" />
-
-        <div class="container body-content">
+    </header>
+    <div class="container-xxl p-3">
+        <main role="main" class="pb-3">
             @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; 2018 - WebApplication1</p>
-            </footer>
-        </div>
-        <environment include="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment exclude="Development">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery"
-                    crossorigin="anonymous"
-                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                    crossorigin="anonymous"
-                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-            </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>
+        </main>
+    </div>
 
-        @RenderSection("Scripts", required: false)
+    <partial name="_LoginPartialModal" />
 
-
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-                    <div class="login-box">
-                        <div class="lb-header">
-                            <a href="#" class="active" id="login-box-link">Login</a>
-                            <a href="#" id="signup-box-link">Sign Up</a>
-                        </div>
-                        <div class="social-login">
-                            <a href="#">
-                                <i class="fa fa-facebook fa-lg"></i>
-                                Login in with facebook
-                            </a>
-                            <a href="#">
-                                <i class="fa fa-google-plus fa-lg"></i>
-                                log in with Google
-                            </a>
-                        </div>
-                        <form class="email-login">
-                            <div class="u-form-group">
-                                <input type="email" placeholder="Email" />
-                            </div>
-                            <div class="u-form-group">
-                                <input type="password" placeholder="Password" />
-                            </div>
-                            <div class="u-form-group">
-                                <button>Log in</button>
-                            </div>
-                            <div class="u-form-group">
-                                <a href="#" class="forgot-password">Forgot password?</a>
-                            </div>
-                        </form>
-                        <form class="email-signup">
-                            <div class="u-form-group">
-                                <input type="email" placeholder="Email" />
-                            </div>
-                            <div class="u-form-group">
-                                <input type="password" placeholder="Password" />
-                            </div>
-                            <div class="u-form-group">
-                                <input type="password" placeholder="Confirm Password" />
-                            </div>
-                            <div class="u-form-group">
-                                <button>Sign Up</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

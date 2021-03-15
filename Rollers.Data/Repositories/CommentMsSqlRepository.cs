@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace Rollers.Data.Repositories
 {
@@ -33,7 +34,7 @@ namespace Rollers.Data.Repositories
 
         public List<Comment> GetAllComments()
         {
-            return _appDbContext.Comments.ToList();
+            return _appDbContext.Comments.Include("User").Include("RollerSkateMapLocation").ToList();
         }
 
         public Comment GetComment(int id)

@@ -33,7 +33,7 @@ namespace Rollers.Controllers {
 		public IActionResult Location(int locationId) {
 
 			var locationVeiwModel = new LocationViewModel {
-				RollerSkateMapLocation = _locationRepository.GetRollerSkateMapLocation(locationId)
+				rollerSkateMapLocation = _locationRepository.GetRollerSkateMapLocation(locationId)
 			};
 
 			return View(locationVeiwModel);

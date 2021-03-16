@@ -13,7 +13,9 @@ namespace Rollers.Domain.Models
         public string LocationName { get; set; }
         public string Address { get; set; }
         public List<Comment> Comments { get; set; }
-        public int UserId{ get; set; }
-        public User User{ get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        public string Description { get; set; }
     }
 }

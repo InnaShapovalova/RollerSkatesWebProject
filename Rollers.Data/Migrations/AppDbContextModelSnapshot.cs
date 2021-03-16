@@ -29,6 +29,9 @@ namespace Rollers.Data.Migrations
                     b.Property<string>("CommentText")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("RollerSkateMapLocationId")
                         .HasColumnType("int");
 
@@ -52,6 +55,12 @@ namespace Rollers.Data.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Latitude")

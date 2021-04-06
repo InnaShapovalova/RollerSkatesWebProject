@@ -6,7 +6,7 @@ namespace Rollers.Domain.Abstractions
     public interface IUserRepository
     {
         User GetUser(int id);
-        void AddUser(User newUser);
+        int AddUser(User newUser);
         List<User> GetAllUsers();
         void DeleteUser(int id);
         User UpdateUser(User updatedUser);

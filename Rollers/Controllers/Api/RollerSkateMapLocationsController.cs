@@ -1,16 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rollers.Domain.Abstractions;
 using Rollers.Domain.Models;
+using Rollers.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rollers.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RollerSkateMapLocationsController: ControllerBase
+    public class RollerSkateMapLocationsController: Controller
     {
         private readonly IRollerSkateMapLocationRepository _rollerSkateMapLocationRepository = null;
         public RollerSkateMapLocationsController(IRollerSkateMapLocationRepository rollerSkateMapLocationRepository)
@@ -25,10 +23,24 @@ namespace Rollers.Controllers.Api
         }
         [Route("addrollerskatemaplocation")]
         [HttpPost]
-        public IActionResult AddRollerSkateMapLocation([FromBody] RollerSkateMapLocation newRollerSkateMapLocation)
+        public IActionResult AddRollerSkateMapLocation([FromBody] RollerSkateMapLocationViewModel newRollerSkateMapLocationViewModel)
         {
-            _rollerSkateMapLocationRepository.AddRollerSkateMapLocation(newRollerSkateMapLocation);
-            return Ok();
+            if(newRollerSkateMapLocationViewModel.UserId < 1)
+            {
+                return BadRequest();
+            }
+            RollerSkateMapLocation rollerSkateMapLocation = new RollerSkateMapLocation()
+            {
+                UserId = newRollerSkateMapLocationViewModel.UserId,
+                LocationName = newRollerSkateMapLocationViewModel.LocationName,
+                Longitude = newRollerSkateMapLocationViewModel.Longitude,
+                Latitude = newRollerSkateMapLocationViewModel.Latitude,
+                CreatedDateTime = DateTime.Now,
+                Address = newRollerSkateMapLocationViewModel.Address,
+                Description = newRollerSkateMapLocationViewModel.Description
+            };
+            _rollerSkateMapLocationRepository.AddRollerSkateMapLocation(rollerSkateMapLocation);
+            return Json("Ok");
         }
         [Route("rollerskatemaplocation/{id}")]
         [HttpGet]

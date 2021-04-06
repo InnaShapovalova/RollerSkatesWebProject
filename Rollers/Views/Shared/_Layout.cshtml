@@ -41,6 +41,9 @@
         </nav>
     </header>
     <div class="container-xxl p-3">
+        <div hidden id="user-id">
+                @(Context.User.Claims.FirstOrDefault(x => x.Type == "UserId") == null ? "" : Context.User.Claims.FirstOrDefault(x => x.Type == "UserId").Value)
+        </div>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -51,5 +54,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/AjaxHelper.js" asp-append-version="true"></script>
 </body>
 </html>

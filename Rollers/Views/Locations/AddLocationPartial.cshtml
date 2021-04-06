@@ -1,4 +1,6 @@
-﻿<div class="modal fade" id="add-new-location-popup" tabindex="-1" role="dialog" aria-labelledby="Add New Location" aria-hidden="true">
+﻿
+
+<div class="modal fade" id="add-new-location-popup" tabindex="-1" role="dialog" aria-labelledby="Add New Location" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,13 +9,41 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
+
             <div class="modal-body">
-                Add New Location
+                
+                <form>
+                    <div class="row justify-content-center my-3">
+                        <div class="col mx-auto ">
+                            <input type="text" id="addlocation-longitude-input" class="form-control" placeholder="Longitude">
+                        </div>
+                        <div class="col mx-auto my-auto">
+                            <input type="text" id="addlocation-latitude-input" class="form-control" placeholder="Latitude">
+                        </div>
+                    </div>
+                    <div class="row justify-content-center my-3">
+                        <div class="col mx-auto">
+                            <input type="text" id="addlocation-name-input" class="form-control" placeholder="LocationName">
+                        </div>
+                        <div class="col mx-auto">
+                            <input type="text" id="addlocation-address-input" class="form-control" placeholder="Address">
+                        </div>
+                    </div>
+                    <div class="row justify-content-center my-3">
+                        <div class="col mx-auto">
+                            <input type="text" id="addlocation-description-input" class="form-control" placeholder="Description">
+                        </div>
+                    </div>
+                </form>
+                <div class="form-error-message alert alert-danger" role="alert" id="addlocation-form-error-alert"></div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" id="addlocation-submit-button" class="btn btn-primary">Add location</button>
             </div>
         </div>
     </div>
 </div>
+

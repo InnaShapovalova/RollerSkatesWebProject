@@ -2,6 +2,8 @@
 using Rollers.Domain.Abstractions;
 using Rollers.Domain.Models;
 using Rollers.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rollers.Controllers
 {
@@ -18,13 +20,15 @@ namespace Rollers.Controllers
 		}
 
 		[Route("")]
-		public IActionResult Locations()
+		public IActionResult Locations(int page = 1)
 		{
 			ViewBag.Current = "Locations";
 
 			LocationsViewModel locationsViewModel = new LocationsViewModel
 			{
-				RollerSkateMapLocations = _locationRepository.GetAllRollerSkateMapLocations()
+				RollerSkateMapLocations = _locationRepository.GetAllRollerSkateMapLocations().OrderBy(d => d.CreatedDateTime).ToList(),
+				RollerSkateMapLocationPerPage = 2,
+				CurrentPage = page
 			};
 
 			return View(locationsViewModel);
@@ -41,6 +45,39 @@ namespace Rollers.Controllers
 
 			return View(locationVeiwModel);
 		}
+
+		[HttpPost]
+		[Route("AddLocationPartial")]
+		public async Task<IActionResult> AddLocationPartial([FromBody] RollerSkateMapLocationViewModel model)
+        {
+			if (ModelState.IsValid)
+            {
+				RollerSkateMapLocation rollerSkateMapLocation = _locationRepository.GetAllRollerSkateMapLocations().FirstOrDefault(l => l.LocationName == model.LocationName);
+				if (rollerSkateMapLocation == null)
+                {
+					RollerSkateMapLocation newRollerSkateMapLocation = new RollerSkateMapLocation
+					{
+						Longitude = model.Longitude,
+						Latitude = model.Latitude,
+						LocationName = model.LocationName,
+						Address = model.Address,
+						CreatedDateTime = model.CreatedDateTime,
+						Description = model.Description
+					};
+
+					_locationRepository.AddRollerSkateMapLocation(newRollerSkateMapLocation);
+
+					return Json("ok");
+                }
+				else
+				{
+					ModelState.AddModelError("", "Such location already exists");
+				}
+			}
+			return Ok();
+           
+        }
+
 
 	}
 }

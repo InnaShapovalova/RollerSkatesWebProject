@@ -15,10 +15,12 @@ namespace Rollers.Data.Repositories
         {
             _appDbContext = appDbContext;
         }
-        public void AddUser(User newUser)
+        public int AddUser(User newUser)
         {
-            _appDbContext.Users.Add(newUser);
+            int id = _appDbContext.Users.Add(newUser).Entity.Id;
             _appDbContext.SaveChanges();
+
+            return id;
         }
         
 

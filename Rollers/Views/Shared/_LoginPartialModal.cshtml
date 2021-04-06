@@ -2,18 +2,90 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">
+                    @if (!Context.User.Identity.IsAuthenticated)
+                    {
+        <p>You are not autorized</p> }
+                    else
+                    {
+        <p>Hi @Context.User.Identity.Name</p>}
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                hello
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+<div class="modal-body">
+    <h3>Profile</h3>
+    <p>Login: @Context.User.Identity.Name</p>
+    <p>First Name: @Context.User.Claims.FirstOrDefault(x => x.Type == "FirstName")?.Value</p>
+    <p>Last Name: @Context.User.Claims.FirstOrDefault(x => x.Type == "LastName")?.Value</p>
+    <p>Email: @Context.User.Claims.FirstOrDefault(x => x.Type == "Email")?.Value</p>
+</div>
+                <div class="modal-footer">
+                    <button type="button" id="main-logout-button" class="btn btn-secondary" data-dismiss="modal">Log out</button>
+                </div> }
+                            else
+                            {
+                <div class="modal-body">
+                    <div hidden id="type-of-action">login</div>
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="log-in-tab" data-toggle="tab" href="#log-in" role="tab" aria-controls="log-in" aria-selected="true">Log in</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="sign-in-tab" data-toggle="tab" href="#sign-in" role="tab" aria-controls="sing-in" aria-selected="false">Sing in</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="log-in" role="tabpanel" aria-labelledby="log-in-tab">
+                            <form class="needs-validation" novalidate>
+                                <div class="row justify-content-center my-3">
+                                    <div class="col mx-auto">
+                                        <input type="text" id="login-input" class="form-control" placeholder="Login" required>
+                                    </div>
+                                    <div class="col mx-auto">
+                                        <input type="password" id="pass-input" class="form-control" placeholder="Password" required>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="form-error-message alert alert-danger" role="alert"></div>
+                        </div>
+                        <div class="tab-pane fade" id="sign-in" role="tabpanel" aria-labelledby="sign-in-tab">
+                            <form>
+                                <div class="row justify-content-center my-3">
+                                    <div class="col mx-auto ">
+                                        <input type="text" id="sign-in-login-input" class="form-control" placeholder="Login">
+                                    </div>
+                                    <div class="col mx-auto my-auto">
+                                        <input type="password" id="sign-in-pass-input" class="form-control" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center my-3">
+                                    <div class="col mx-auto">
+                                        <input type="text" id="sign-in-first-name-input" class="form-control" placeholder="First Name">
+                                    </div>
+                                    <div class="col mx-auto">
+                                        <input type="text" id="sign-in-last-name-input" class="form-control" placeholder="Last Name">
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center my-3">
+                                    <div class="col mx-auto">
+                                        <input type="email" id="sign-in-email-input" class="form-control" placeholder="Email">
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="form-error-message alert alert-danger" role="alert"></div>
+                        </div>
+                    </div>
+
+                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" id="main-login-button" class="btn btn-primary">Log in</button>
+                                </div>            }
         </div>
     </div>
 </div>

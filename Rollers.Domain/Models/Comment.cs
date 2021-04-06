@@ -13,6 +13,7 @@ namespace Rollers.Domain.Models
         public int RollerSkateMapLocationId { get; set; }
         public RollerSkateMapLocation RollerSkateMapLocation { get; set; }
         public string CommentText { get; set; }
+        public DateTime CreatedDateTime { get; set; }
 
     }
 }

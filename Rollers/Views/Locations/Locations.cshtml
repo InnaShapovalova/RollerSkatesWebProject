@@ -20,28 +20,35 @@
         </button>
     </div>
 </div>
+<div class="row">
+    @if (Model.RollerSkateMapLocations.Count > 0)
+    {
+        @foreach (var location in Model.PaginatedRollerSkateMapLocations())
+        {
+            <div class="card text-center border-dark" style="width: 18rem" align="center">
+                <div class="card-header">
+                    @location.LocationName
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@location.Address</p>
+                    <p class="card-text">Created by @location.User.FirstName @location.User.LastName</p>
+                    <a asp-controller="Locations" asp-action="Location" asp-route-locationId="@location.Id" class="btn btn-secondary">See all information</a>
+                </div>
+                <div class="card-footer text-muted">
+                    Count of comments: @(location.Comments.Count)
+                </div>
+            </div>
+        }
+    }
+</div>
 
-
-@if (Model.RollerSkateMapLocations.Count > 0)
-{
-@foreach (var location in Model.RollerSkateMapLocations)
-{
-<div class="card text-center border-dark">
-    <div class="card-header">
-        @location.LocationName
-    </div>
-    <div class="card-body">
-        <p class="card-text">@location.Address</p>
-        <p class="card-text">Created by @location.User.FirstName @location.User.LastName</p>
-        <a asp-controller="Locations" asp-action="Location" asp-route-locationId="@location.Id" class="btn btn-secondary">See all information</a>
-    </div>
-    <div class="card-footer text-muted">
-        Count of comments: @(location.Comments?.Count ?? 0)
-    </div>
-</div>}}
+<ul class="pagination" style="display: flex; justify-content: center">
+    @for (int i = 1; i <= Model.PageCount(); i++)
+    {
+        <li class="@(i == Model.CurrentPage ? "page-item active" : "page-item")">
+            <a class="page-link" href="@Url.Action("Locations", new { page = i })">@i</a>
+        </li>
+}
+</ul>
 
 <partial name="AddLocationPartial" />
-
-
-
-

@@ -45,6 +45,7 @@ namespace Rollers.Data.Repositories
         public void AddRollerSkateMapLocation(RollerSkateMapLocation newRollerSkateMapLocation)
         {
             _appDbContext.RollerSkateMapLocations.Add(newRollerSkateMapLocation);
+            _appDbContext.SaveChanges();
         }
 
         public RollerSkateMapLocation UpdateRollerSkateMapLocation(RollerSkateMapLocation updatedRollerSkateMapLocation)

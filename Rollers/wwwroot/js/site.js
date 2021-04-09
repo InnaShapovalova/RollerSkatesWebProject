@@ -229,3 +229,61 @@ $('#addlocation-submit-button').click(function () {
 
     
 });
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var addcommentErrorAlert = $('#addcomment-form-error-alert')
+$('#addcomment-input').keyup(function () {
+    addcommentErrorAlert.html("")
+    addcommentErrorAlert.hide();
+})
+
+
+$('#addcomment-submit-button').click(function () {
+
+    var commentInput = $('#addcomment-input')
+    var userId = $('#user-id')
+    var rollerSkateMapLocationId = $('#rollerSkateMapLocation-id')
+
+    var locationModel = {
+        CommentText: commentInput.val(),
+        UserId: parseInt(userId.html().trim()),
+        rollerSkateMapLocationId: parseInt(rollerSkateMapLocationId.html())
+    }
+
+    ajaxHandler.AjaxPOSTJson(
+        "api/Comments/addcomment",
+        locationModel,
+        function () {
+            document.location.reload();
+        },
+        function (obj, msg) {
+            var response = JSON.parse(obj.responseText)
+            var errorMessage = ''
+            if (response.errors !== undefined) {
+                if (response.errors.CommentText !== undefined) {
+                    errorMessage += response.errors.CommentText + "<br>"
+                }
+            }
+
+            addcommentErrorAlert.html(errorMessage)
+            addcommentErrorAlert.show()
+        }
+    );
+
+
+});
+
+
+//-----------------------Edit comment---------------------
+
+function GetComments(_this) {
+    var targetedDiv = $(_this).parents('td').find('div');
+
+    if ($(targetedDiv).css('display') == 'block') {
+        $(targetedDiv).css('display', 'none');
+    }
+    else {
+        $(targetedDiv).css('display', 'block');
+    }
+}

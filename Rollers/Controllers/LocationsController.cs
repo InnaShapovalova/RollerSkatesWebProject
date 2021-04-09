@@ -12,12 +12,14 @@ namespace Rollers.Controllers
 	{
 
 		private readonly IRollerSkateMapLocationRepository _locationRepository = null;
+		private readonly IUserRepository _userRepository = null;
 
-
-		public LocationsController(IRollerSkateMapLocationRepository locationRepository)
+		public LocationsController(IRollerSkateMapLocationRepository locationRepository, IUserRepository userRepository)
 		{
 			_locationRepository = locationRepository;
+			_userRepository = userRepository;
 		}
+
 
 		[Route("")]
 		public IActionResult Locations(int page = 1)
@@ -27,7 +29,7 @@ namespace Rollers.Controllers
 			LocationsViewModel locationsViewModel = new LocationsViewModel
 			{
 				RollerSkateMapLocations = _locationRepository.GetAllRollerSkateMapLocations().OrderBy(d => d.CreatedDateTime).ToList(),
-				RollerSkateMapLocationPerPage = 2,
+				RollerSkateMapLocationPerPage = 5,
 				CurrentPage = page
 			};
 
@@ -43,41 +45,12 @@ namespace Rollers.Controllers
 				RollerSkateMapLocation = _locationRepository.GetRollerSkateMapLocation(locationId)
 			};
 
+			foreach(var comment in locationVeiwModel.RollerSkateMapLocation.Comments)
+            {
+				comment.User = _userRepository.GetUser(comment.UserId ?? -1);
+            }
+
 			return View(locationVeiwModel);
 		}
-
-		[HttpPost]
-		[Route("AddLocationPartial")]
-		public async Task<IActionResult> AddLocationPartial([FromBody] RollerSkateMapLocationViewModel model)
-        {
-			if (ModelState.IsValid)
-            {
-				RollerSkateMapLocation rollerSkateMapLocation = _locationRepository.GetAllRollerSkateMapLocations().FirstOrDefault(l => l.LocationName == model.LocationName);
-				if (rollerSkateMapLocation == null)
-                {
-					RollerSkateMapLocation newRollerSkateMapLocation = new RollerSkateMapLocation
-					{
-						Longitude = model.Longitude,
-						Latitude = model.Latitude,
-						LocationName = model.LocationName,
-						Address = model.Address,
-						CreatedDateTime = model.CreatedDateTime,
-						Description = model.Description
-					};
-
-					_locationRepository.AddRollerSkateMapLocation(newRollerSkateMapLocation);
-
-					return Json("ok");
-                }
-				else
-				{
-					ModelState.AddModelError("", "Such location already exists");
-				}
-			}
-			return Ok();
-           
-        }
-
-
 	}
 }

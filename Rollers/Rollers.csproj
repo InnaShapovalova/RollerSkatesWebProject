@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Rollers.Data\Rollers.Data.csproj" />
   </ItemGroup>
 

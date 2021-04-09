@@ -42,7 +42,7 @@
     </header>
     <div class="container-xxl p-3">
         <div hidden id="user-id">
-                @(Context.User.Claims.FirstOrDefault(x => x.Type == "UserId") == null ? "" : Context.User.Claims.FirstOrDefault(x => x.Type == "UserId").Value)
+            @(Context.User.Claims.FirstOrDefault(x => x.Type == "UserId") == null ? "" : Context.User.Claims.FirstOrDefault(x => x.Type == "UserId").Value)
         </div>
         <main role="main" class="pb-3">
             @RenderBody()

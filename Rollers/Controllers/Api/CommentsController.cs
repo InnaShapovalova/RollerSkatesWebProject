@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rollers.Domain.Abstractions;
 using Rollers.Domain.Models;
+using Rollers.ViewModels;
+using System;
 
 namespace Rollers.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommentsController : ControllerBase
+    public class CommentsController : Controller
     {
         private readonly ICommentRepository _commentRepository = null;
         public CommentsController(ICommentRepository commentRepository)
@@ -21,10 +23,21 @@ namespace Rollers.Controllers.Api
         }
         [Route("addcomment")]
         [HttpPost]
-        public IActionResult AddComment([FromBody] Comment newComment)
+        public IActionResult AddComment([FromBody] CommentViewModel newCommentViewModel)
         {
-            _commentRepository.AddComment(newComment);
-            return Ok();
+            if (newCommentViewModel.UserId < 1 || newCommentViewModel.RollerSkateMapLocationId < 1)
+            {
+                return BadRequest();
+            }
+            Comment comment = new Comment()
+            {
+                UserId = newCommentViewModel.UserId,
+                RollerSkateMapLocationId = newCommentViewModel.RollerSkateMapLocationId,
+                CommentText = newCommentViewModel.CommentText,
+                CreatedDateTime = DateTime.Now
+            };
+            _commentRepository.AddComment(comment);
+            return Json("Ok");
         }
         [Route("comment/{id}")]
         [HttpGet]

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Rollers.Domain.Abstractions;
 using Rollers.Domain.Models;
 using Rollers.ViewModels;
@@ -7,6 +8,7 @@ using System;
 namespace Rollers.Controllers.Api
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class RollerSkateMapLocationsController: Controller
     {
@@ -35,7 +37,7 @@ namespace Rollers.Controllers.Api
                 LocationName = newRollerSkateMapLocationViewModel.LocationName,
                 Longitude = newRollerSkateMapLocationViewModel.Longitude,
                 Latitude = newRollerSkateMapLocationViewModel.Latitude,
-                CreatedDateTime = DateTime.Now,
+                LocationCreatedDateTime = DateTime.Now,
                 Address = newRollerSkateMapLocationViewModel.Address,
                 Description = newRollerSkateMapLocationViewModel.Description
             };

@@ -11,6 +11,7 @@ namespace Rollers.Domain.Abstractions
         void AddComment(Comment newComment);
         List<Comment> GetAllComments();
         void DeleteComment(int id);
-        Comment UpdateComment(Comment updatedComment);
+        void UpdateCommentTextById(int commentId, string editedText);
+        void UpdateComment(Comment comment);
     }
 }

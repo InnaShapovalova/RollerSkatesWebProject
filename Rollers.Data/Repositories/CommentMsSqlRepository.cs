@@ -42,11 +42,28 @@ namespace Rollers.Data.Repositories
             return _appDbContext.Comments.First(x => x.Id == id);
         }
 
-        public Comment UpdateComment(Comment updatedComment)
+        public void UpdateCommentTextById(int commentId, string editedText)
         {
-            _appDbContext.Entry(_appDbContext.Users.FirstOrDefault(x => x.Id == updatedComment.Id)).CurrentValues.SetValues(updatedComment);
-            _appDbContext.SaveChanges();
-            return updatedComment;
+            Comment comment = _appDbContext.Comments.FirstOrDefault(x => x.Id == commentId);
+
+            if (comment != null)
+            {
+                comment.CommentText = editedText;
+                _appDbContext.SaveChanges();
+            }
+
+        }
+
+        public void UpdateComment(Comment comment)
+        {
+            Comment _comment = _appDbContext.Comments.FirstOrDefault(x => x.Id == comment.Id);
+
+            if (comment != null)
+            {
+                _comment = comment;
+                _appDbContext.SaveChanges();
+            }
+
         }
     }
 }

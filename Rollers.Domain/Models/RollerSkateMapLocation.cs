@@ -15,7 +15,7 @@ namespace Rollers.Domain.Models
         public List<Comment> Comments { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public DateTime CreatedDateTime { get; set; }
+        public DateTime LocationCreatedDateTime { get; set; } = DateTime.MinValue;
         public string Description { get; set; }
     }
 }

@@ -31,23 +31,6 @@ $('#pass-input').keyup(function () {
     loginErrorAlert.hide();
 })
 
-var usersTableSetUserRoleClick = function (id, userRole) {
-    if (id > 0) {
-        ajaxHandler.AjaxPOSTJson(
-            "api/users/" + id + "/role/" + userRole,
-            {},
-            function (response) {
-                console.log(response)
-                document.location.reload();
-            },
-            function (obj, msg) {
-                console.log(obj)
-                console.log(msg)
-            }
-        );
-    }
-}
-
 $('#main-login-button').click(function () {
     var loginInput = $('#login-input')
     var passwordInput = $('#pass-input')
@@ -71,8 +54,8 @@ $('#main-login-button').click(function () {
             function () {
                 document.location.reload();
             },
-            function (obj, msg) {
-                var response = JSON.parse(obj.responseText)
+            function (responseText) {
+                var response = JSON.parse(responseText)
                 var errorMessage = ''
                 if (response.errors !== undefined) {
                     if (response.errors.Login !== undefined) {
@@ -102,8 +85,8 @@ $('#main-login-button').click(function () {
             function () {
                 document.location.reload();
             },
-            function (obj, msg) {
-                var response = JSON.parse(obj.responseText)
+            function (responseText) {
+                var response = JSON.parse(responseText)
                 var errorMessage = ''
                 if (response.errors !== undefined) {
                     if (response.errors.Login !== undefined) {
@@ -136,9 +119,8 @@ $('#main-logout-button').click(function () {
         function () {
             document.location.reload();
         },
-        function (obj, msg) {
-            console.log(obj)
-            console.log(msg)
+        function (responseText) {
+            console.log(responseText)
         }
     );
 })
@@ -176,19 +158,20 @@ $('#addlocation-description-input').keyup(function () {
     addlocationErrorAlert.hide();
 })
 
-
+$('#add-new-location-popup').on('hidden.bs.modal', function (e) {
+    addlocationErrorAlert.html("")
+    addlocationErrorAlert.hide();
+})
 $('#addlocation-submit-button').click(function () {
 
-    var longitudeInput = $('#addlocation-longitude-input')
-    var latitudeInput = $('#addlocation-latitude-input')
     var nameInput = $('#addlocation-name-input')
     var addressInput = $('#addlocation-address-input')
     var descInput = $('#addlocation-description-input')
     var userId = $('#user-id')
 
     var locationModel = {
-        Longitude: parseInt(longitudeInput.val()),
-        Latitude: parseInt(latitudeInput.val()),
+        Longitude: markerGlobal.getPosition().toJSON().lng,
+        Latitude: markerGlobal.getPosition().toJSON().lat,
         LocationName: nameInput.val(),
         Address: addressInput.val(),
         Description: descInput.val(),
@@ -201,8 +184,8 @@ $('#addlocation-submit-button').click(function () {
         function () {
             document.location.reload();
         },
-        function (obj, msg) {
-            var response = JSON.parse(obj.responseText)
+        function (responseText) {
+            var response = JSON.parse(responseText)
             var errorMessage = ''
             if (response.errors !== undefined) {
                 if (response.errors.Longitude !== undefined) {
@@ -257,8 +240,8 @@ $('#addcomment-submit-button').click(function () {
         function () {
             document.location.reload();
         },
-        function (obj, msg) {
-            var response = JSON.parse(obj.responseText)
+        function (responseText) {
+            var response = JSON.parse(responseText)
             var errorMessage = ''
             if (response.errors !== undefined) {
                 if (response.errors.CommentText !== undefined) {
@@ -277,13 +260,66 @@ $('#addcomment-submit-button').click(function () {
 
 //-----------------------Edit comment---------------------
 
-function GetComments(_this) {
-    var targetedDiv = $(_this).parents('td').find('div');
 
-    if ($(targetedDiv).css('display') == 'block') {
-        $(targetedDiv).css('display', 'none');
+function save_edited_comment(commentId, val) {
+    var editedComment = {
+        Id: parseInt(commentId),
+        CommentText: val.val()
     }
-    else {
-        $(targetedDiv).css('display', 'block');
-    }
+
+    ajaxHandler.AjaxPOSTJson(
+        "api/Comments/comment/update",
+        editedComment,
+        function () {
+            document.location.reload();
+        },
+        function (responseText) {
+            console.log(JSON.parse(responseText))
+        }
+    );
+}
+
+////////////////////Delete_comment///////////////////
+
+function delete_this_comment(commentId) {
+    var Id = parseInt(commentId)
+
+    ajaxHandler.AjaxPOSTJson(
+        "api/Comments/comment/delete/{Id}",
+        Id,
+        function () {
+            document.location.reload();
+        },
+        function (responseText) {
+            console.log(JSON.parse(responseText))
+        }
+    );
+}
+
+function addlikes(commentId) {
+    var id = parseInt(commentId)
+    ajaxHandler.AjaxPOSTJson(
+        "api/Comments/comment/addlike/"+id,
+        {},
+        function (response) {
+            $('#' + id + '-likes-number').html(response)
+        },
+        function (responseText) {
+            console.log(JSON.parse(responseText))
+        }
+    );
+}
+
+function adddislikes(commentId) {
+    var id = parseInt(commentId)
+    ajaxHandler.AjaxPOSTJson(
+        "api/Comments/comment/adddislike/"+id,
+        {},
+        function (response) {
+            $('#' + id + '-dislikes-number').html(response)
+        },
+        function (responseText) {
+            console.log(JSON.parse(responseText))
+        }
+    );
 }

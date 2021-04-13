@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Rollers.Data.Contexts;
 using Rollers.Data.Repositories;
 using Rollers.Domain.Abstractions;
+using Rollers.Utilities.Managers;
 
 namespace Rollers
 {
@@ -25,6 +26,7 @@ namespace Rollers
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<GoogleMapManager>();
             services.AddSingleton(_appConfiguration);
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_appConfiguration.DbSettings.MsSqlConnectionString));
             services.AddScoped<IRollerSkateMapLocationRepository, RollerSkateMapLocationMsSqlRepository>();

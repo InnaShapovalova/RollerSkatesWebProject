@@ -28,7 +28,7 @@ namespace Rollers.Controllers
 
 			LocationsViewModel locationsViewModel = new LocationsViewModel
 			{
-				RollerSkateMapLocations = _locationRepository.GetAllRollerSkateMapLocations().OrderBy(d => d.CreatedDateTime).ToList(),
+				RollerSkateMapLocations = _locationRepository.GetAllRollerSkateMapLocations().OrderBy(d => d.LocationCreatedDateTime).ToList(),
 				RollerSkateMapLocationPerPage = 5,
 				CurrentPage = page
 			};

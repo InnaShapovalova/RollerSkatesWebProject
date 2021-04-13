@@ -8,6 +8,7 @@ namespace Rollers
     public class AppConfiguration
     {
         public DbSettings DbSettings { get; set; }
+        public string GoogleMapApiKey { get; set; }
     }
     public class DbSettings
     {

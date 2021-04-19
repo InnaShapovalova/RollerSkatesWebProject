@@ -32,19 +32,46 @@ function addMarker(location) {
     markerGlobal = marker;
     getAddressByPosition(markerGlobal.getPosition().toJSON().lat, markerGlobal.getPosition().toJSON().lng)
     console.log(markerGlobal.getPosition().toJSON())
+    map.setCenter(location);
 }
 
 function initAddLocationMap () {
-    const chernivtsi = { lat: 48.288750322671135, lng: 25.936233767576702 };
     map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
-        center: chernivtsi,
+        center: { lat: 48.292079, lng: 25.935837 },
         mapTypeId: "terrain",
     });
+
+    locationButton = initButton();
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+
+    locationButton.addEventListener("click", () => {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+
+                    addMarker(pos);
+                }
+            );
+        } 
+    }); 
+
     // This event listener will call addMarker() when the map is clicked.
     map.addListener("click", (event) => {
         addMarker(event.latLng);
     });
     // Adds a marker at the center of the map.
-    addMarker(chernivtsi);
+}
+function initButton() {
+    const locationButton = document.createElement("button");
+    locationButton.textContent = "Pan to Current Location";
+    locationButton.class = "btn btn-light border-dark mt-2"
+    locationButton.classList.add("custom-map-control-button");
+
+    return locationButton;
 }

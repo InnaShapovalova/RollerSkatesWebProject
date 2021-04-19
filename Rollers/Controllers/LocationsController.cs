@@ -13,11 +13,13 @@ namespace Rollers.Controllers
 
 		private readonly IRollerSkateMapLocationRepository _locationRepository = null;
 		private readonly IUserRepository _userRepository = null;
+		private readonly AppConfiguration _appConfiguration = null;
 
-		public LocationsController(IRollerSkateMapLocationRepository locationRepository, IUserRepository userRepository)
+		public LocationsController(IRollerSkateMapLocationRepository locationRepository, IUserRepository userRepository, AppConfiguration appConfiguration)
 		{
 			_locationRepository = locationRepository;
 			_userRepository = userRepository;
+			_appConfiguration = appConfiguration;
 		}
 
 
@@ -29,8 +31,9 @@ namespace Rollers.Controllers
 			LocationsViewModel locationsViewModel = new LocationsViewModel
 			{
 				RollerSkateMapLocations = _locationRepository.GetAllRollerSkateMapLocations().OrderBy(d => d.LocationCreatedDateTime).ToList(),
-				RollerSkateMapLocationPerPage = 5,
-				CurrentPage = page
+				RollerSkateMapLocationPerPage = 3,
+				CurrentPage = page,
+				GoogleApiKey = _appConfiguration.GoogleMapApiKey
 			};
 
 			return View(locationsViewModel);
@@ -42,7 +45,8 @@ namespace Rollers.Controllers
 
 			var locationVeiwModel = new LocationViewModel
 			{
-				RollerSkateMapLocation = _locationRepository.GetRollerSkateMapLocation(locationId)
+				RollerSkateMapLocation = _locationRepository.GetRollerSkateMapLocation(locationId),
+				GoogleApiKey = _appConfiguration.GoogleMapApiKey
 			};
 
 			foreach(var comment in locationVeiwModel.RollerSkateMapLocation.Comments)

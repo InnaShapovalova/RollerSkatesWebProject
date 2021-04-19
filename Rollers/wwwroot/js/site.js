@@ -296,6 +296,40 @@ function delete_this_comment(commentId) {
     );
 }
 
+////////////////////Delete_location///////////////////
+
+function delete_this_location(locationId) {
+    var Id = parseInt(locationId)
+
+    ajaxHandler.AjaxPOSTJson(
+        "api/RollerSkateMapLocations/rollerskatemaplocation/delete/{Id}",
+        Id,
+        function () {
+            document.location.reload();
+        },
+        function (responseText) {
+            console.log(JSON.parse(responseText))
+        }
+    );
+}
+
+//-------------------- Cancel Edit Text ------------------------------ 
+
+function cancelEdit(id) {
+
+    var hide = document.getElementById('editcomment-cancel-button');
+    var div = document.getElementById(id);
+    var show = document.getElementById('show');
+
+    hide.addEventListener('click', function () {
+        show.disabled = false;
+        hide.style = ('display: none');
+        div.style = ('display: none');
+    })
+}
+
+//---------------------Likes-------------------------------------------
+
 function addlikes(commentId) {
     var id = parseInt(commentId)
     ajaxHandler.AjaxPOSTJson(
@@ -323,3 +357,6 @@ function adddislikes(commentId) {
         }
     );
 }
+
+//-------------------Dropdown---------------------------------
+

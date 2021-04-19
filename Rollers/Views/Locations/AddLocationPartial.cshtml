@@ -14,7 +14,7 @@
             <div class="modal-body">
 
                 <div id="map"></div>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhw8SGIvP9F95IJxjhMWm62OATXgLF8Lo&callback=initAddLocationMap&libraries=&v=weekly"></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=@Model.GoogleApiKey&callback=initAddLocationMap&libraries=&v=weekly"></script>
                 
                 <form>
                     <div class="row justify-content-center my-3">
@@ -22,7 +22,7 @@
                             <input type="text" id="addlocation-name-input" class="form-control" placeholder="LocationName">
                         </div>
                         <div class="col mx-auto">
-                            <input type="text" id="addlocation-address-input" class="form-control" placeholder="Address" disabled>
+                            <textarea id="addlocation-address-input" class="form-control" placeholder="Address" disabled></textarea>
                         </div>
                     </div>
                     <div class="row justify-content-center my-3">

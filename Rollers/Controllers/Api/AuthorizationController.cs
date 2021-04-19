@@ -34,10 +34,10 @@ namespace Rollers.Controllers.Api
             if (ModelState.IsValid)
             {
                 var users = _userRepository.GetAllUsers();
-                User user = users.FirstOrDefault(u => u.Login == model.Login && u.Password == model.Password);
+                User user = users.FirstOrDefault(u => u.Login == model.Login && u.Password == HashPassword(model.Password));
                 if (user != null)
                 {
-                    await Authenticate(user); // аутентификация
+                    await Authenticate(user); 
 
                     return Json("ok");
                 }
@@ -66,11 +66,8 @@ namespace Rollers.Controllers.Api
                         Email = model.Email,
                         UserType = UserTypeEnum.Visitor
                     };
-                    // добавляем пользователя в бд
-                    int userId = _userRepository.AddUser(newUser);
-
-                    newUser.Id = userId;
-                    await Authenticate(newUser); // аутентификация
+                    _userRepository.AddUser(newUser);
+                    await Authenticate(newUser); 
 
                     return Json("ok");
                 }
@@ -95,7 +92,6 @@ namespace Rollers.Controllers.Api
 
         private async Task Authenticate(User user)
         {
-            // создаем один claim
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
@@ -106,9 +102,8 @@ namespace Rollers.Controllers.Api
                 new Claim("UserId", user.Id.ToString())
 
             };
-            // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            // установка аутентификационных куки
+            
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 

@@ -57,13 +57,15 @@ namespace Rollers.Controllers.Api
             _rollerSkateMapLocationRepository.UpdateRollerSkateMapLocation(updatedRollerSkateMapLocation);
             return Ok();
         }
-        [Route("rollerskatemaplocation/delete")]
+
+        [Route("rollerskatemaplocation/delete/{id}")]
         [HttpPost]
         public IActionResult DeleteRollerSkateMapLocation(int id)
         {
             _rollerSkateMapLocationRepository.DeleteRollerSkateMapLocation(id);
-            return Ok();
+            return Json("Ok");
         }
+
     }
 }
 

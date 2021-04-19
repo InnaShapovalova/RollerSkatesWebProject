@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication</title>
+    <title>RollerSkateMapLocations</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -13,8 +13,8 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-dark bg-dark">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-dark bg-dark p-0 m-0">
+            <a class="navbar-brand pl-3" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="~/img/roller-skate-logo.svg" width="50" height="50" alt="">
             </a>
             <div class="navbar-collapse collapse">
@@ -26,7 +26,21 @@
                         <a class="nav-link @(ViewBag.Current == "Locations" ? "active" : "")" asp-area="" asp-controller="Locations" asp-action="Locations">Locations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @(ViewBag.Current == "Info" ? "active" : "")" asp-area="" asp-controller="Info" asp-action="Index">Usefull Info</a>
+                        <div class="dropdown">
+                            <button 
+                                    class="dropdown-toggle nav-link border-0" type="button" 
+                                    id="dropdownMenuButton" data-toggle="dropdown" 
+                                    aria-haspopup="true" aria-expanded="false" 
+                                    style="background-color:transparent;border:none">
+                                Useful info
+                            </button>
+                            <div id="myDropdown"class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                                <a class="@(ViewBag.Current == "Info" ? "active" : "")" asp-area="" asp-controller="Info" asp-action="Basics">Learning the Basics</a>
+                                <a asp-area="" asp-controller="Info" asp-action="Benefits">Benefits of Roller Skating</a>
+                                <a asp-area="" asp-controller="Info" asp-action="Guide">Guide To Buy</a>
+                            </div>
+                        </div>
+                        
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @(ViewBag.Current == "About" ? "active" : "")" asp-area="" asp-controller="About" asp-action="Index">About Us</a>
@@ -34,8 +48,9 @@
                     <li class="nav-item">
                         <a class="nav-link @(ViewBag.Current == "Contacts" ? "active" : "")" asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
                     </li>
+
                 </ul>
-                <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#shared-login-popup">
+                <button type="button" class="btn btn-outline-dark pr-3" data-toggle="modal" data-target="#shared-login-popup">
                     <img src="~/img/login-person.svg" width="30" height="30" alt="">
                 </button>
 

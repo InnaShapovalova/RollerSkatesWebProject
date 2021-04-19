@@ -1,0 +1,36 @@
+﻿<div class="card text-center border-dark bg-dark border-light text-light m-1" style="width: 30rem">
+    <div class="card-header">
+
+        @if (Rollers.Utilities.Helpers.CommentHelper.HasToShowDeleteButton(Context.User.Claims, Model.UserId))
+        {
+            <div class="d-flex justify-content-between">
+                <div class="p-2"></div>
+                <div class="p-2">@Model.LocationName</div>
+                <div class="p-2">
+                    <button type="button"
+                            class="btn btn-link g-color-primary--hover"
+                            data-toggle="modal"
+                            data-target="#popup_delete_location_@Model.Id.ToString()">
+                        <i><img src="~/img/cancel.png" width="12" alt=""></i>
+                    </button>
+                    <partial name="DeleteLocationPartial.cshtml" model="@Model" />
+                </div>
+            </div>
+        }
+        else
+        {
+            @Model.LocationName
+        }
+    </div>
+    <div class="card-body">
+        <partial name="MapPartial.cshtml" model="@Model" />
+        <p class="card-text">@Model.Address</p>
+        <p class="card-text">
+            <span class="g-color-gray-dark-v4 g-font-size-12">Created by @Model.User.FirstName @Model.User.LastName</span>
+        </p>
+        <a asp-controller="Locations" asp-action="Location" asp-route-locationId="@Model.Id" class="btn btn-secondary">See all information</a>
+    </div>
+    <div class="card-footer text-muted">
+        Count of comments: @(Model.Comments.Count)
+    </div>
+</div>

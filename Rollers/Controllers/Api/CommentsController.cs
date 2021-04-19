@@ -82,7 +82,7 @@ namespace Rollers.Controllers.Api
             comment.Likes += 1;
             _commentRepository.UpdateComment(comment);
 
-            return Json(comment.Likes);
+            return Json(" " + comment.Likes);
         }
         [Route("comment/adddislike/{id}")]
         [HttpPost]
@@ -98,7 +98,7 @@ namespace Rollers.Controllers.Api
             comment.Dislikes += 1;
             _commentRepository.UpdateComment(comment);
 
-            return Json(comment.Dislikes);
+            return Json(" " + comment.Dislikes);
         }
     }
 }

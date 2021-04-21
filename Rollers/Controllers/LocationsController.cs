@@ -12,12 +12,16 @@ namespace Rollers.Controllers
 	{
 
 		private readonly IRollerSkateMapLocationRepository _locationRepository = null;
+		private readonly IUserRepository _userRepository = null;
+		private readonly AppConfiguration _appConfiguration = null;
 
-
-		public LocationsController(IRollerSkateMapLocationRepository locationRepository)
+		public LocationsController(IRollerSkateMapLocationRepository locationRepository, IUserRepository userRepository, AppConfiguration appConfiguration)
 		{
 			_locationRepository = locationRepository;
+			_userRepository = userRepository;
+			_appConfiguration = appConfiguration;
 		}
+
 
 		[Route("")]
 		public IActionResult Locations(int page = 1)
@@ -26,9 +30,10 @@ namespace Rollers.Controllers
 
 			LocationsViewModel locationsViewModel = new LocationsViewModel
 			{
-				RollerSkateMapLocations = _locationRepository.GetAllRollerSkateMapLocations().OrderBy(d => d.CreatedDateTime).ToList(),
-				RollerSkateMapLocationPerPage = 2,
-				CurrentPage = page
+				RollerSkateMapLocations = _locationRepository.GetAllRollerSkateMapLocations().OrderBy(d => d.LocationCreatedDateTime).ToList(),
+				RollerSkateMapLocationPerPage = 3,
+				CurrentPage = page,
+				GoogleApiKey = _appConfiguration.GoogleMapApiKey
 			};
 
 			return View(locationsViewModel);
@@ -40,44 +45,16 @@ namespace Rollers.Controllers
 
 			var locationVeiwModel = new LocationViewModel
 			{
-				RollerSkateMapLocation = _locationRepository.GetRollerSkateMapLocation(locationId)
+				RollerSkateMapLocation = _locationRepository.GetRollerSkateMapLocation(locationId),
+				GoogleApiKey = _appConfiguration.GoogleMapApiKey
 			};
+
+			foreach(var comment in locationVeiwModel.RollerSkateMapLocation.Comments)
+            {
+				comment.User = _userRepository.GetUser(comment.UserId ?? -1);
+            }
 
 			return View(locationVeiwModel);
 		}
-
-		[HttpPost]
-		[Route("AddLocationPartial")]
-		public async Task<IActionResult> AddLocationPartial([FromBody] RollerSkateMapLocationViewModel model)
-        {
-			if (ModelState.IsValid)
-            {
-				RollerSkateMapLocation rollerSkateMapLocation = _locationRepository.GetAllRollerSkateMapLocations().FirstOrDefault(l => l.LocationName == model.LocationName);
-				if (rollerSkateMapLocation == null)
-                {
-					RollerSkateMapLocation newRollerSkateMapLocation = new RollerSkateMapLocation
-					{
-						Longitude = model.Longitude,
-						Latitude = model.Latitude,
-						LocationName = model.LocationName,
-						Address = model.Address,
-						CreatedDateTime = model.CreatedDateTime,
-						Description = model.Description
-					};
-
-					_locationRepository.AddRollerSkateMapLocation(newRollerSkateMapLocation);
-
-					return Json("ok");
-                }
-				else
-				{
-					ModelState.AddModelError("", "Such location already exists");
-				}
-			}
-			return Ok();
-           
-        }
-
-
 	}
 }

@@ -1,0 +1,103 @@
+﻿
+@if (Rollers.Utilities.Helpers.CommentHelper.HasToShowDeleteButton(Context.User.Claims, Model.UserId))
+{
+    <div class="col-md-8 offset-2">
+        <div class="media g-mb-15 media-comment" id="comment-cancel">
+            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                <div class="g-mb-15">
+
+                    <div class="container">
+                        <div class="d-flex justify-content-end align-items-start">
+                            <button type="button"
+                                    class="btn btn-link g-color-primary--hover"
+                                    data-toggle="modal"
+                                    data-target="#popup_delete_comment_@Model.Id.ToString()">
+                                <i><img src="~/img/cancel.png" width="12" alt=""></i>
+                            </button>
+                            <partial name="DeleteCommentPartial.cshtml" model="@Model" />
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+                        
+
+    <div class="col-md-8 offset-2">
+        <div class="media g-mb-15 media-comment" id="comment-body">
+            <div class="media-body u-shadow-v18 g-bg-secondary g-mr-3">
+                <div class="g-mb-15">
+                    <div class="container">
+                        <div class="d-flex panel">
+                            <div class="flex-grow-1">
+                                <h5 class="h5 g-color-gray-dark-v1 mb-0">
+                                    @Model.User.FirstName @Model.User.LastName
+                                </h5>
+                            </div>
+                            <div>
+                                <span class="g-color-gray-dark-v4 g-font-size-12">@Model.CommentCreatedDateTime</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="p-3"><br /><p>@Model.CommentText</p></div>
+                    </div>
+                </div>
+
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="d-flex panel">
+                                <div class="mr-auto">
+                                    @if (Rollers.Utilities.Helpers.CommentHelper.HasToShowDeleteButton(Context.User.Claims, Model.UserId))
+                                    {
+                                        <button type="button" id="show" class="btn btn-link g-color-primary--hover" onclick="$('#text_id_@Model.Id').toggle()">
+                                            <i><img src="~/img/pen.png" width="12" alt=""></i>
+                                            Edit
+                                        </button>
+                                        <div id="text_id_@Model.Id" style="display:none">
+                                            <textarea id="editcomment-text_@Model.Id" cols="50" rows="5" name="text" class="form-control" style="resize:vertical">@Model.CommentText</textarea>
+                                            <div hidden id="comment-id">
+                                                @(Model.Id < 1 ? 0 : Model.Id)
+                                            </div>
+                                            <button type="button"
+                                                    id="editcomment-save-button"
+                                                    onclick="save_edited_comment(@(Model.Id), $('#editcomment-text_@Model.Id.ToString()'))"
+                                                    class="btn btn-info">
+                                                Save
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="item item-pink"></div>
+                                <div class="item item-red "></div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <div class="d-flex panel">
+                                <div class="mr-auto"></div>
+                                <div class="item item-pink"></div>
+                                <div class="row">
+                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" onclick="addlikes(@Model.Id)">
+                                        <div id="@Model.Id-likes-number" class="fa fa-thumbs-up g-pos-rel g-top-1"> @Model.Likes </div>
+                                    </a><pre> </pre>
+                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" onclick="adddislikes(@Model.Id)">
+                                        <div id="@Model.Id-dislikes-number" class="fa fa-thumbs-down g-pos-rel g-top-1"> @Model.Dislikes</div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>

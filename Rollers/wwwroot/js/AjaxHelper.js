@@ -29,9 +29,12 @@
                     successCallback(response);
                 }
             },
-            error: function (obj, msg) {
-                if (errorCallback) {
-                    errorCallback(obj, msg);
+            error: function (jqXHR) {
+                if (jqXHR.status === 401) {
+                    $('.modal').modal('hide')
+                    $('#shared-login-popup').modal("show")
+                } else if (errorCallback) {
+                    errorCallback(jqXHR.responseText);
                 }
             }
         });

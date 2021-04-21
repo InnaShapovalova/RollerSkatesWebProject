@@ -1,21 +1,88 @@
 ﻿@model LocationViewModel
 
-<div class="card text-center border-dark">
-    <div class="card-header">
-        @Model.RollerSkateMapLocation.LocationName
+    <div class="col-md-12 text-center align-content-center">
+        <div class="media g-mb-15 media-comment" id="comment-body">
+            <div class="media-body u-shadow-v18 g-bg-secondary g-mr-3">
+                <div class="g-mb-15">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-2"><h5>Location name: </h5><h4>@Model.RollerSkateMapLocation.LocationName</h4></div>
+                        <div class="p-2">
+                            <h5>Description: </h5><h4>@Model.RollerSkateMapLocation.Description</h4>
+                        </div>
+                        <div class="p-2"><h5>Address: </h5><h4>@Model.RollerSkateMapLocation.Address</h4></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        <p class="card-text">@Model.RollerSkateMapLocation.Address</p>
-        <p class="card-text">Created by @Model.RollerSkateMapLocation.User.FirstName @Model.RollerSkateMapLocation.User.LastName</p>
-        <p class="card-text">Latitude: @Model.RollerSkateMapLocation.Latitude, Longitude: @Model.RollerSkateMapLocation.Longitude</p>
-        <p>Comments: </p>
-        <lu>
-            @foreach (var comment in Model.RollerSkateMapLocation.Comments)
+
+    <div class="card-body border-light justify-content-center">
+        <div class="card-header">
+            <!--The div element for the map -->
+            <div id="map"></div>
+
+            <script type="text/javascript">
+               function initMap() {
+                   const location =
+                   {
+                        lat: parseFloat(@Model.RollerSkateMapLocation.Latitude),
+                        lng: parseFloat(@Model.RollerSkateMapLocation.Longitude)
+                   };
+                   console.log(location)
+                   map = new google.maps.Map(document.getElementById("map"), {
+                       zoom: 15,
+                       center: location,
+                       mapTypeId: "terrain",
+                   });
+                   const marker = new google.maps.Marker({
+                       position: location,
+                       map: map,
+                   });
+               }
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=@Model.GoogleApiKey&callback=initMap&libraries=&v=weekly"></script>
+        </div>
+
+        <div class="card-body border-light justify-content-center">
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+            @if (Model.RollerSkateMapLocation.Comments.Count != 0)
             {
-<li><p>@comment.CommentText</p></li>            }
-        </lu>
+                @foreach (var comment in Model.RollerSkateMapLocation.Comments)
+                {
+                    <partial name="CommentPartial.cshtml" model="@comment" />
+                }
+            }
+            
+
+            <div class="col-md-8 offset-2">
+                <div class="media g-mb-15 media-comment" >
+                    <div class="media-body u-shadow-v18 g-bg-secondary g-mr-3">
+                        <div class="g-mb-15">
+                            Count of comments: @(Model.RollerSkateMapLocation.Comments?.Count ?? 0)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 offset-2">
+                <div class="media g-mb-15 media-comment">
+                    <div class="media-body u-shadow-v18 g-bg-secondary g-mr-3">
+                        <div class="g-mb-15">
+                            <form id="algin-form">
+                                <div class="form-group">
+                                    <textarea id="addcomment-input" class="form-control" placeholder="Comment" style="background-color: white;"></textarea>
+                                </div>
+                                <div hidden id="rollerSkateMapLocation-id">
+                                    @(Model.RollerSkateMapLocation.Id < 1 ? 0 : Model.RollerSkateMapLocation.Id )
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" id="addcomment-submit-button" class="btn btn-primary">Add comment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-footer text-muted">
-        Count of comments: @(Model.RollerSkateMapLocation.Comments?.Count ?? 0)
-    </div>
-</div>

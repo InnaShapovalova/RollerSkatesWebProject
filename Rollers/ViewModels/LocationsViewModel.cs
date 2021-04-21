@@ -10,7 +10,7 @@ namespace Rollers.ViewModels
         public List<RollerSkateMapLocation> RollerSkateMapLocations { get; set; }
         public int RollerSkateMapLocationPerPage { get; set; }
         public int CurrentPage { get; set; }
-
+        public string GoogleApiKey { get; set; }
         public int PageCount()
         {
             return Convert.ToInt32(Math.Ceiling(RollerSkateMapLocations.Count / (double)RollerSkateMapLocationPerPage));

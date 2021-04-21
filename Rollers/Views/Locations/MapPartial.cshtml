@@ -1,0 +1,22 @@
+﻿<div id="map_@Model.Id.ToString()" style="height: 200px;width: 90%;"></div>
+
+<script type="text/javascript">
+               function initMap() {
+                   const location =
+                   {
+                        lat: parseFloat(@Model.Latitude),
+                        lng: parseFloat(@Model.Longitude)
+                   };
+                   console.log(location)
+                   map = new google.maps.Map(document.getElementById("map_@Model.Id.ToString()"), {
+                       zoom: 15,
+                       center: location,
+                       mapTypeId: "terrain",
+                   });
+                   const marker = new google.maps.Marker({
+                       position: location,
+                       map: map,
+                   });
+               }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=@ViewData["GoogleApiKey"]&callback=initMap&libraries=&v=weekly"></script>

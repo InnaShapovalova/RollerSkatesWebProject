@@ -1,0 +1,38 @@
+﻿<div class="modal fade" id="popup_delete_location_@Model.Id.ToString()" tabindex="-1" role="dialog" aria-labelledby="Delete this comment" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-black-50" id="exampleModalLabel"><p>Do you really wanna delete this location?</p></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body">
+                <div class="card text-center bg-dark" style="width: 30rem">
+                    <div class="card-header">
+                        @Model.LocationName
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Model.Address</p>
+                        <p class="card-text">Created by @Model.User.FirstName @Model.User.LastName</p>
+                        <a asp-controller="Locations" asp-action="Location" asp-route-locationId="@Model.Id" class="btn btn-secondary">See all information</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Count of comments: @(Model.Comments.Count)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button"
+                        id="button_delete_location_@Model.Id.ToString()"
+                        onclick="delete_this_location(@(Model.Id))"
+                        class="btn btn-primary">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

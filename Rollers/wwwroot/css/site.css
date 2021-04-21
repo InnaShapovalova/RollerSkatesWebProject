@@ -1,1 +1,142 @@
-﻿
+﻿.form-error-message {
+    display: none;
+    margin-top: 5px;
+    font-size: 12px; !important;
+}
+
+body {
+    margin-top: 0px;
+    background-image: url('https://wallpapercave.com/wp/wp3146629.jpg');
+    background-repeat: repeat;
+}
+
+
+#map {
+    height: 400px;
+    /* The height is 400 pixels */
+    width: 100%;
+    /* The width is the width of the web page */
+}
+
+#smallmap {
+    height: 200px;
+    /* The height is 400 pixels */
+    width: 10%;
+    /* The width is the width of the web page */
+}
+
+@media (min-width: 0) {
+    .g-mr-15 {
+        margin-right: 0rem;
+    }
+}
+
+@media (min-width: 0) {
+    .g-mt-3 {
+        margin-top: 0rem !important;
+    }
+}
+
+.g-height-50 {
+    height: 50px;
+}
+
+.g-width-50 {
+    width: 50px !important;
+}
+
+@media (min-width: 0) {
+    .g-pa-30 {
+        padding-top: 0.6rem !important;
+    }
+}
+
+@media (min-width: 0) {
+    .g-mr-3 {
+        padding: 2.14286rem !important;
+    }
+}
+
+.g-bg-secondary {
+    background-color: #fafafa !important;
+}
+
+.u-shadow-v18 {
+    box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.15);
+}
+
+.g-color-gray-dark-v4 {
+    color: #777 !important;
+}
+
+.g-font-size-12 {
+    font-size: 0.85714rem !important;
+}
+
+#comment-body {
+    margin-bottom: 20px
+}
+
+.dropdown-item {
+    background-color: #343a40;
+    padding: 12px 16px;
+}
+.font {
+    color: #9a9da0;
+}
+
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+    /* Dropdown button on hover & focus */
+    .dropbtn:hover, .dropbtn:focus {
+        background-color: #2980B9;
+    }
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    border: none;
+}
+.dropdown button:hover{
+    border:0;
+}
+/* Dropdown Content (Hidden by Default) */
+.dropdown-menu {
+    position: absolute;
+    background-color: #343a40;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-menu a {
+    color: #efefef;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+    .dropdown-menu a:hover {
+        background-color: #2a2a2a
+    }
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+    display: block;
+}
+
+
+.p {
+    text-indent: 1.5em; /* Отступ первой строки */
+    text-align: justify;
+}

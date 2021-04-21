@@ -48,11 +48,15 @@ namespace Rollers.Data.Repositories
             _appDbContext.SaveChanges();
         }
 
-        public RollerSkateMapLocation UpdateRollerSkateMapLocation(RollerSkateMapLocation updatedRollerSkateMapLocation)
+        public void UpdateRollerSkateMapLocation(RollerSkateMapLocation updatedRollerSkateMapLocation)
         {
-            _appDbContext.Entry(_appDbContext.Users.FirstOrDefault(x => x.Id == updatedRollerSkateMapLocation.Id)).CurrentValues.SetValues(updatedRollerSkateMapLocation);
-            _appDbContext.SaveChanges();
-            return updatedRollerSkateMapLocation;
+            RollerSkateMapLocation location = _appDbContext.RollerSkateMapLocations.FirstOrDefault(x => x.Id == updatedRollerSkateMapLocation.Id);
+
+            if (location != null)
+            {
+                location = updatedRollerSkateMapLocation;
+                _appDbContext.SaveChanges();
+            }
         }
     }
 }

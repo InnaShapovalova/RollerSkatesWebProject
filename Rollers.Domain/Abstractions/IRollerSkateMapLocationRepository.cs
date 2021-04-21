@@ -11,6 +11,6 @@ namespace Rollers.Domain.Abstractions
         void AddRollerSkateMapLocation(RollerSkateMapLocation newRollerSkateMapLocation);
         List<RollerSkateMapLocation> GetAllRollerSkateMapLocations();
         void DeleteRollerSkateMapLocation(int id);
-        RollerSkateMapLocation UpdateRollerSkateMapLocation(RollerSkateMapLocation updatedRollerSkateMapLocation);
+        void UpdateRollerSkateMapLocation(RollerSkateMapLocation updatedRollerSkateMapLocation);
     }
 }

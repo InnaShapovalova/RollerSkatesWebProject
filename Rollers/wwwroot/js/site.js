@@ -79,36 +79,44 @@ $('#main-login-button').click(function () {
             Email: signinEmailInput.val()
         }
 
-        ajaxHandler.AjaxPOSTJson(
-            "api/Authorization/Register",
-            signInModel,
-            function () {
-                document.location.reload();
-            },
-            function (responseText) {
-                var response = JSON.parse(responseText)
-                var errorMessage = ''
-                if (response.errors !== undefined) {
-                    if (response.errors.Login !== undefined) {
-                        errorMessage += response.errors.Login + "<br>"
+        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;   //"@" in regex is the issue
+
+        if (!emailReg.test(signInModel.Email)) {
+            signinErrorAlert.html("Email is not valid")
+            signinErrorAlert.show()
+        }
+        else {
+            ajaxHandler.AjaxPOSTJson(
+                "api/Authorization/Register",
+                signInModel,
+                function () {
+                    document.location.reload();
+                },
+                function (responseText) {
+                    var response = JSON.parse(responseText)
+                    var errorMessage = ''
+                    if (response.errors !== undefined) {
+                        if (response.errors.Login !== undefined) {
+                            errorMessage += response.errors.Login + "<br>"
+                        }
+                        if (response.errors.Password !== undefined) {
+                            errorMessage += response.errors.Password + "<br>"
+                        }
+                        if (response.errors.FirstName !== undefined) {
+                            errorMessage += response.errors.FirstName + "<br>"
+                        }
+                        if (response.errors.LastName !== undefined) {
+                            errorMessage += response.errors.LastName + "<br>"
+                        }
+                        if (response.errors.Email !== undefined) {
+                            errorMessage += response.errors.Email + "<br>"
+                        }
                     }
-                    if (response.errors.Password !== undefined) {
-                        errorMessage += response.errors.Password + "<br>"
-                    }
-                    if (response.errors.FirstName !== undefined) {
-                        errorMessage += response.errors.FirstName + "<br>"
-                    }
-                    if (response.errors.LastName !== undefined) {
-                        errorMessage += response.errors.LastName + "<br>"
-                    }
-                    if (response.errors.Email !== undefined) {
-                        errorMessage += response.errors.Email + "<br>"
-                    }
+                    signinErrorAlert.html(errorMessage)
+                    signinErrorAlert.show()
                 }
-                signinErrorAlert.html(errorMessage)
-                signinErrorAlert.show()
-            }
-        );
+            );
+        }
     }
 });
 
@@ -296,6 +304,23 @@ function delete_this_comment(commentId) {
     );
 }
 
+////////////////////Delete_user///////////////////
+
+function delete_user_(userId) {
+
+    ajaxHandler.AjaxPOSTJson(
+        "api/Users/user/delete/" + userId,
+        {},
+        function () {
+            document.location.reload();
+        },
+        function (responseText) {
+            console.log(JSON.parse(responseText))
+        }
+    );
+}
+
+
 ////////////////////Delete_location///////////////////
 
 function delete_this_location(locationId) {
@@ -358,5 +383,21 @@ function adddislikes(commentId) {
     );
 }
 
-//-------------------Dropdown---------------------------------
+//-------------------Admin Users---------------------------------
 
+var usersTableSetUserRoleClick = function (id, userRole) {
+    if (id > 0) {
+        ajaxHandler.AjaxPOSTJson(
+            "api/users/" + id + "/role/" + userRole,
+            {},
+            function (response) {
+                console.log(response)
+                document.location.reload();
+            },
+            function (obj, msg) {
+                console.log(obj)
+                console.log(msg)
+            }
+        );
+    }
+}

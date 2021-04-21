@@ -1,5 +1,5 @@
 ﻿
-@if (Rollers.Utilities.Helpers.CommentHelper.HasToShowDeleteButton(Context.User.Claims, Model.UserId))
+@if (Rollers.Utilities.Helpers.CommentHelper.HasToShowForUserId(Context.User.Claims, Model.UserId))
 {
     <div class="col-md-8 offset-2">
         <div class="media g-mb-15 media-comment" id="comment-cancel">
@@ -52,7 +52,7 @@
                         <div class="col-12 col-lg-6">
                             <div class="d-flex panel text-light">
                                 <div class="mr-auto">
-                                    @if (Rollers.Utilities.Helpers.CommentHelper.HasToShowDeleteButton(Context.User.Claims, Model.UserId))
+                                    @if (Rollers.Utilities.Helpers.CommentHelper.HasToShowForUserId(Context.User.Claims, Model.UserId))
                                     {
                                         <button type="button" id="show" class="btn btn-link g-color-gray-dark-v1 g-color-primary--hover" onclick="$('#text_id_@Model.Id').toggle()">
                                             <i><img src="~/img/pen.png" width="12" alt=""></i>

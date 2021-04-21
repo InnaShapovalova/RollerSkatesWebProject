@@ -27,20 +27,19 @@
                     </li>
                     <li class="nav-item">
                         <div class="dropdown">
-                            <button 
-                                    class="dropdown-toggle nav-link border-0" type="button" 
-                                    id="dropdownMenuButton" data-toggle="dropdown" 
-                                    aria-haspopup="true" aria-expanded="false" 
+                            <button class="dropdown-toggle nav-link border-0" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false"
                                     style="background-color:transparent;border:none">
                                 Useful info
                             </button>
-                            <div id="myDropdown"class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                            <div id="myDropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="@(ViewBag.Current == "Info" ? "active" : "")" asp-area="" asp-controller="Info" asp-action="Basics">Learning the Basics</a>
                                 <a asp-area="" asp-controller="Info" asp-action="Benefits">Benefits of Roller Skating</a>
                                 <a asp-area="" asp-controller="Info" asp-action="Guide">Guide To Buy</a>
                             </div>
                         </div>
-                        
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @(ViewBag.Current == "About" ? "active" : "")" asp-area="" asp-controller="About" asp-action="Index">About Us</a>
@@ -48,7 +47,16 @@
                     <li class="nav-item">
                         <a class="nav-link @(ViewBag.Current == "Contacts" ? "active" : "")" asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
                     </li>
+                    @if (Context.User.Identity.IsAuthenticated && Context.User.IsInRole(UserTypeEnum.Admin.ToString()))
+                    {
+                        <li class="nav-item dropdown bg-dark @(ViewBag.Current == "Admin" ? "active" : "")">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
 
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="Index" asp>Users</a>
+                            </div>
+                        </li>
+                    }
                 </ul>
                 <button type="button" class="btn btn-outline-dark pr-3" data-toggle="modal" data-target="#shared-login-popup">
                     <img src="~/img/login-person.svg" width="30" height="30" alt="">

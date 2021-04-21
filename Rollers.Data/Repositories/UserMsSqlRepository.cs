@@ -42,11 +42,15 @@ namespace Rollers.Data.Repositories
             return _appDbContext.Users.First(x => x.Id == id);
         }
 
-        public User UpdateUser(User updatedUser)
+        public void UpdateUser(User updatedUser)
         {
-            _appDbContext.Entry( _appDbContext.Users.FirstOrDefault(x => x.Id == updatedUser.Id)).CurrentValues.SetValues(updatedUser);
-            _appDbContext.SaveChanges();
-            return updatedUser;         //It's wrong
+            User user = _appDbContext.Users.FirstOrDefault(x => x.Id == updatedUser.Id);
+
+            if (user != null)
+            {
+                user = updatedUser;
+                _appDbContext.SaveChanges();
+            }
         }
     }
 }

@@ -58,12 +58,11 @@ namespace Rollers.Data.Repositories
         {
             Comment _comment = _appDbContext.Comments.FirstOrDefault(x => x.Id == comment.Id);
 
-            if (comment != null)
+            if (_comment != null)
             {
                 _comment = comment;
                 _appDbContext.SaveChanges();
             }
-
         }
     }
 }

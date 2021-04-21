@@ -1,22 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Rollers.Domain.Abstractions;
 using Rollers.Domain.Models;
-using Rollers.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rollers.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly IUserRepository _userRepository = null;
-        public UsersController(IUserRepository userRepository)
+        private readonly ICommentRepository _commentRepository = null;
+        private readonly IRollerSkateMapLocationRepository _locationRepository = null;
+        public UsersController(IUserRepository userRepository, ICommentRepository commentRepository, IRollerSkateMapLocationRepository rollerSkateMapLocationRepository)
         {
             _userRepository = userRepository;
+            _commentRepository = commentRepository;
+            _locationRepository = rollerSkateMapLocationRepository;
         }
         [Route("")]
         [HttpGet]
@@ -45,12 +49,43 @@ namespace Rollers.Controllers.Api
             _userRepository.UpdateUser(updatedUser);
             return Ok();
         }
-        [Route("user/delete")]
+        [Route("user/delete/{id}")]
         [HttpPost]
         public IActionResult DeleteUser(int id)
         {
+            List<Comment> comments = _commentRepository.GetAllComments().Where(x => x.UserId == id).ToList();
+            List<RollerSkateMapLocation> locations = _locationRepository.GetAllRollerSkateMapLocations().Where(x => x.UserId == id).ToList();
+
+            foreach (var comment in comments)
+            {
+                comment.UserId = null;
+                _commentRepository.UpdateComment(comment);
+            }
+
+            foreach (var location in locations)
+            {
+                location.UserId = null;
+                _locationRepository.UpdateRollerSkateMapLocation(location);
+            }
+
             _userRepository.DeleteUser(id);
-            return Ok();
+
+            return Json("Ok");
+        }
+
+        [Route("{id}/role/{role}")]
+        [HttpPost]
+        public IActionResult SetUserRoleById(int id, int role)
+        {
+            if (!Enum.IsDefined(typeof(UserTypeEnum), (UserTypeEnum)role)) {
+                return BadRequest("There is no such role");
+            }
+
+            var user = _userRepository.GetUser(id);
+            user.UserType = (UserTypeEnum) role;
+            _userRepository.UpdateUser(user);
+
+            return Json("Ok");
         }
     }
 }

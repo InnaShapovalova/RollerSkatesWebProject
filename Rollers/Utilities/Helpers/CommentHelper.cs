@@ -7,7 +7,7 @@ namespace Rollers.Utilities.Helpers
 {
     public static class CommentHelper
     {
-        public static bool HasToShowDeleteButton(IEnumerable<System.Security.Claims.Claim> claims, int? commentUserId)
+        public static bool HasToShowForUserId(IEnumerable<System.Security.Claims.Claim> claims, int? commentUserId)
         {
             return int.TryParse(
             claims.FirstOrDefault(x => x.Type == "UserId") == null ?

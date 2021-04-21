@@ -9,6 +9,6 @@ namespace Rollers.Domain.Abstractions
         void AddUser(User newUser);
         List<User> GetAllUsers();
         void DeleteUser(int id);
-        User UpdateUser(User updatedUser);
+        void UpdateUser(User updatedUser);
     }
 }

@@ -43,7 +43,21 @@ function initAddLocationMap () {
     });
 
     locationButton = initButton();
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton)
+
+    // This event listener will call addMarker() when the map is clicked.
+    map.addListener("click", (event) => {
+        addMarker(event.latLng);
+    });
+    // Adds a marker at the center of the map.
+}
+function initButton() {
+    const locationButton = document.createElement("button");
+    locationButton.textContent = "Pan to Current Location";
+    locationButton.classList.add("btn");
+    locationButton.classList.add("btn-light");
+    locationButton.classList.add("border-dark");
+    locationButton.classList.add("mt-2")
 
     locationButton.addEventListener("click", () => {
         // Try HTML5 geolocation.
@@ -58,20 +72,8 @@ function initAddLocationMap () {
                     addMarker(pos);
                 }
             );
-        } 
+        }
     }); 
-
-    // This event listener will call addMarker() when the map is clicked.
-    map.addListener("click", (event) => {
-        addMarker(event.latLng);
-    });
-    // Adds a marker at the center of the map.
-}
-function initButton() {
-    const locationButton = document.createElement("button");
-    locationButton.textContent = "Pan to Current Location";
-    locationButton.class = "btn btn-light border-dark mt-2"
-    locationButton.classList.add("custom-map-control-button");
 
     return locationButton;
 }

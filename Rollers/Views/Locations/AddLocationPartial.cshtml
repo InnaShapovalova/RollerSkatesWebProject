@@ -2,8 +2,8 @@
 
 <div class="modal fade" id="add-new-location-popup" tabindex="-1" role="dialog" aria-labelledby="Add New Location" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content" style="background-color:#343a40">
+            <div class="modal-header text-light">
                 <h5 class="modal-title" id="exampleModalLabel">Add New Location</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -11,7 +11,7 @@
             </div>
 
 
-            <div class="modal-body">
+            <div class="modal-body text-light">
 
                 <div id="map"></div>
                 <script src="https://maps.googleapis.com/maps/api/js?key=@Model.GoogleApiKey&callback=initAddLocationMap&libraries=&v=weekly"></script>

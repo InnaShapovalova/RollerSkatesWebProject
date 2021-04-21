@@ -1,7 +1,7 @@
 ﻿<div class="modal fade" id="shared-login-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content" style="background-color:#343a40">
+            <div class="modal-header text-light">
                 <h5 class="modal-title" id="exampleModalLabel">
                     @if (!Context.User.Identity.IsAuthenticated)
                     {
@@ -16,14 +16,14 @@
             </div>
             @if (Context.User.Identity.IsAuthenticated)
             {
-<div class="modal-body">
+<div class="modal-body text-light">
     <h3>Profile</h3>
     <p>Login: @Context.User.Identity.Name</p>
     <p>First Name: @Context.User.Claims.FirstOrDefault(x => x.Type == "FirstName")?.Value</p>
     <p>Last Name: @Context.User.Claims.FirstOrDefault(x => x.Type == "LastName")?.Value</p>
     <p>Email: @Context.User.Claims.FirstOrDefault(x => x.Type == "Email")?.Value</p>
 </div>
-                <div class="modal-footer">
+                <div class="modal-footer text-light">
                     <button type="button" id="main-logout-button" class="btn btn-secondary" data-dismiss="modal">Log out</button>
                 </div> }
                             else

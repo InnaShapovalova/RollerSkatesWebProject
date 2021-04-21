@@ -1,6 +1,34 @@
 ﻿<div class="col-md-8 offset-2 text-center" style="margin-top:150px">
         <a class="text-light bg-dark nav-link @(ViewBag.Current == "Locations" ? "active" : "")"
            asp-area="" asp-controller="Locations" asp-action="Locations">
-            <h1 class="display-2">Find or post your location</h1>
+            <h2 class="display-2">Find or post your location</h2>
 </a>
+</div>
+
+<div class="col-md-4 offset-4 text-center " style="margin-top:50px">
+    <a class="text-light bg-dark nav-link @(ViewBag.Current == "Locations" ? "active" : "")"
+       asp-area="" asp-controller="Info" asp-action="Basics">
+        <h2>Learning the basics of rollerskating</h2>
+    </a>
+</div>
+
+<div class="col-md-4 offset-4 text-center">
+    <a class="text-light bg-dark nav-link @(ViewBag.Current == "Locations" ? "active" : "")"
+       asp-area="" asp-controller="Info" asp-action="Benefits">
+        <h2>Benefits of rollerskating</h2>
+    </a>
+</div>
+
+<div class="col-md-4 offset-4 text-center">
+    <a class="text-light bg-dark nav-link @(ViewBag.Current == "Locations" ? "active" : "")"
+       asp-area="" asp-controller="Info" asp-action="Guide">
+        <h2>Guide to buy new roller skates</h2>
+    </a>
+</div>
+
+<div class="col-md-2 offset-5 text-center" style="margin-top:200px">
+    <a class="text-light bg-dark nav-link @(ViewBag.Current == "Locations" ? "active" : "")"
+       asp-area="" asp-controller="Contacts" asp-action="Index">
+        <h5>Contacts</h5>
+    </a>
 </div>
